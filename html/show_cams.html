@@ -1,0 +1,8 @@
+<?php
+require_once('/var/www/html/export/classes/show_class.php');
+$camso=new Show();
+?>
+<table>
+<tr><td>Камеры:</td></tr>
+<?php $cams=$camso->ShowCams();?>
+</table>

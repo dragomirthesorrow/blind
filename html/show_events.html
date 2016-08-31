@@ -1,0 +1,14 @@
+<?php 
+//print_r($_GET);
+if(isset($_GET['monid'])){
+$camid=$_GET['monid']; 
+//echo $camid;
+}
+require_once('./classes/show_class.php');
+$eventso= new Show;
+
+?>
+<p align="left">Камера <?php echo '<B>'.$camid.'</B>';?></p>
+<table><tr><td><p><B>Время события</B></p></td><td><p><B>Номер события</B></p></td></tr>
+<?php $events=$eventso->ShowEvents($camid);?>
+</table>

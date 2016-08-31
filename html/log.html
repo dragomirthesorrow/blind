@@ -1,0 +1,15 @@
+
+<?php
+/*$text = fopen("/var/www/html/export/script/bin/log.txt"); 
+//$text = htmlspecialchars($text); 
+$str=fread($text);
+print_r($text);
+*/
+
+$lines = file('/var/www/html/export/script/bin/log.txt');
+foreach ($lines as $line) {
+$line = trim($line);
+// в $line упадёт содержимое.
+echo $line.'<br/>';
+}
+?>
