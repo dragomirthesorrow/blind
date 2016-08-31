@@ -20,7 +20,7 @@ foreach($monitors as $monitor){
     $pid=$pid_arr['pid'];
     if($pid==0)//проверка по пид, если запись не начата
     {echo '1';
-//system(start-stop-daemon -Xvbs '$_SERVER[\'DOCUMENT_ROOT\']'/record/'$monitor[\'name\']'/pidrec -r ffmpeg -- '$_SERVER[\'DOCUMENT_ROOT\']'/record/'$monitor[\'name\']'/record.avi);
+    //вызов класса записи
 }
     
     }
