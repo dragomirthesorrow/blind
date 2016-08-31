@@ -3,6 +3,7 @@ class Record {
     
     public function StartRecord($monitor){
         $this->mon=$monitor;
+        //логируем начало записи и в файл и в скуль
         echo $this->mon;
         //system(start-stop-daemon -Xvbs '$_SERVER[\'DOCUMENT_ROOT\']'/record/'$monitor[\'name\']'/pidrec -r ffmpeg -- '$_SERVER[\'DOCUMENT_ROOT\']'/record/'$monitor[\'name\']'/record.avi);
     //Получаем пид процесса записи и логируем то, что запись идет 
