@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Авг 31 2016 г., 12:17
+-- Время создания: Авг 31 2016 г., 13:56
 -- Версия сервера: 10.1.13-MariaDB
 -- Версия PHP: 7.0.8
 
@@ -36,6 +36,18 @@ CREATE TABLE `events` (
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `log_record`
+--
+
+CREATE TABLE `log_record` (
+  `id` int(255) NOT NULL,
+  `id_monitor` int(255) NOT NULL,
+  `pid` int(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `monitors`
 --
 
@@ -46,6 +58,13 @@ CREATE TABLE `monitors` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- Дамп данных таблицы `monitors`
+--
+
+INSERT INTO `monitors` (`id`, `name`, `path`) VALUES
+(1, 'Cam_01', 'rtsp://video:123456@172.16.0.199:7070/axis-media/media.amp');
+
+--
 -- Индексы сохранённых таблиц
 --
 
@@ -53,6 +72,12 @@ CREATE TABLE `monitors` (
 -- Индексы таблицы `events`
 --
 ALTER TABLE `events`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `log_record`
+--
+ALTER TABLE `log_record`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -71,10 +96,15 @@ ALTER TABLE `monitors`
 ALTER TABLE `events`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT для таблицы `log_record`
+--
+ALTER TABLE `log_record`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT для таблицы `monitors`
 --
 ALTER TABLE `monitors`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
