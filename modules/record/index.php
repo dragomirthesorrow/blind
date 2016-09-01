@@ -19,12 +19,16 @@ foreach($monitors as $monitor){
     $pid_arr=$getpid->Connect();
     //print_r($pid_arr);
     $pidp=$pid_arr['0']['pid'];
-    if($pidp==0)//проверка по пид, если запись не начата
-    {
-    //echo $pidp;
-    //вызов класса записи
+    $monitor_id=$pid_arr['0']['id_monitor'];
+    //Проверяем на наличие записи
+        if($pidp == 0){
+            //Если запись не идет, то начинаем
+        echo 'Запись не идет, начинаем';
     $rec=new Record;
-    $rec->StartRecord($pidp);
+    $rec->StartRecord($monitor_id,$pidp);
 }
-    
-    }
+    //Проверяем длительности записи и рестартуем при необходимости
+    $restart=new Record;
+    $restart->CheckAndRestart();
+
+        }

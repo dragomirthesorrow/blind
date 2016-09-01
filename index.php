@@ -1,5 +1,8 @@
 <?php
 
-echo 'index of API';
+echo 'index of API front';
 echo 'Here will the interface of front';
-//phpinfo();
+$object = new stdClass();
+$array = array(1, 'var_dump test', 4 => $object);
+var_dump($array);
+phpinfo();
