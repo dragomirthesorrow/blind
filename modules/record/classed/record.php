@@ -19,21 +19,26 @@ class Record {
         $system_pid_file=file($_SERVER['DOCUMENT_ROOT'].'/modules/record/devices/'.$cam_name.'/pidrec.txt');
         $system_pid = $system_pid_file[0];
         $date=  date("Y-m-d H:i:s");
-        //echo $date;
         $log_started_record='<p><font color=green> '.$date.' Начата запись с камеры '.$cam_name.', процесс записи: '.$system_pid.'</font></p>';
-        echo $log_started_record;
+        $file=fopen($_SERVER['DOCUMENT_ROOT'].'/log.txt',"a");
+        fwrite ($file, $log_started_record);
+        //echo $log_started_record >> $_SERVER['DOCUMENT_ROOT'].'/log.txt';
+        //Лог для базы
+        $sql_log_rec="update `log_record` set `start_time`='$date' where `id_monitor`='$this->mon'";
+        $log_rec = new Connection($sql_log_rec);
+        $log_rec->Connect();
         
-        //Получаем время записи от начала и сверяем с максимальным
-        
-        //Проверяем не идет ли запись по пиду на отрезке времени, если не идет перестартуем и чистим
-        //
-        //логируем начало записи и в файл и в скуль
         echo $this->mon;
         echo $this->pid;
         
     }
     public function CheckAndRestart(){
         echo 'Проверка записей:'; 
+        //Получаем время записи от начала и сверяем с максимальным
+        
+        //Проверяем не идет ли запись по пиду на отрезке времени, если не идет перестартуем и чистим
+        //
+        //логируем начало записи и в файл и в скуль
     }
     
     }
