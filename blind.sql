@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Авг 31 2016 г., 13:56
+-- Время создания: Сен 02 2016 г., 11:40
 -- Версия сервера: 10.1.13-MariaDB
 -- Версия PHP: 7.0.8
 
@@ -29,9 +29,17 @@ SET time_zone = "+00:00";
 CREATE TABLE `events` (
   `id` int(11) NOT NULL,
   `start_time` datetime NOT NULL,
-  `end_time` datetime NOT NULL,
+  `end_time` datetime DEFAULT NULL,
   `monitor_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `events`
+--
+
+INSERT INTO `events` (`id`, `start_time`, `end_time`, `monitor_id`) VALUES
+(1, '2016-09-01 12:55:28', '2016-09-01 12:58:07', 1),
+(2, '2016-09-01 16:03:40', '2016-09-02 10:07:36', 1);
 
 -- --------------------------------------------------------
 
@@ -42,8 +50,17 @@ CREATE TABLE `events` (
 CREATE TABLE `log_record` (
   `id` int(255) NOT NULL,
   `id_monitor` int(255) NOT NULL,
-  `pid` int(255) NOT NULL
+  `pid` int(255) NOT NULL,
+  `start_time` datetime NOT NULL,
+  `finished` int(2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `log_record`
+--
+
+INSERT INTO `log_record` (`id`, `id_monitor`, `pid`, `start_time`, `finished`) VALUES
+(1, 1, 4556, '2016-09-02 11:24:42', 1);
 
 -- --------------------------------------------------------
 
@@ -94,12 +111,12 @@ ALTER TABLE `monitors`
 -- AUTO_INCREMENT для таблицы `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT для таблицы `log_record`
 --
 ALTER TABLE `log_record`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT для таблицы `monitors`
 --
