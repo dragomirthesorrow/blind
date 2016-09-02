@@ -62,7 +62,7 @@ class Record {
                     $file_end=fopen($_SERVER['DOCUMENT_ROOT'].'/log.txt',"a");
                     fwrite ($file_end, $log_alert_end);
                 //Возобновляем запись с новым пид и логом
-                    $new_record=$this->StartRecord($camera, $pidn);
+                    $this->StartRecord($camera, $pidn);
                     
                 }else{
                     $log_alert_f='<p><font color=blue>Фоновая запись идет более допустимого значения. Процесс: '.$pidn.'. Камера №: '.$camera.'. !!!Записывается событие!!!</font></p>';
@@ -76,19 +76,11 @@ class Record {
                 echo 'записи ваще не идет';
                 continue;
             }
-            //Проверяем - идет ли запись Ивента
-            //$monit=$time['monitor'];
-            //$sql_event_record="select * from `event` where `monitor_id`='$monit'";
-            //$event_record=new Connection($sql_event_record);
-            //$event=$event_record->Connect();
+
             
         }
-        
-        //Проверяем не идет ли запись по пиду на отрезке времени, если не идет перестартуем и чистим
-        //
-        //логируем начало записи и в файл и в скуль
     }
     public function EndRecord(){
         
     }
-    }
+}
