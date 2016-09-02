@@ -47,9 +47,6 @@ class Record {
                 $sql_check_event="select * from `events` where `end_time` is NULL and `monitor_id`='$camera'";
                 $check_event=new Connection($sql_check_event);
                 $event=$check_event->Connect();
-                //$log_alert='<p><font color=orange>Внимание!Фоновая запись идет более допустимого значения. Процесс: '.$pidn.'. Камера №: '.$camera.'</font></p>';
-                //$filel=fopen($_SERVER['DOCUMENT_ROOT'].'/log.txt',"a");
-                //fwrite ($filel, $log_alert);
                 if(empty($event)){
                     echo 'Записи события нет';//Рестартуем запись с новым пидом
                     //Завершаем запись
@@ -57,6 +54,9 @@ class Record {
                     $get_name=new Connection($sql_get_name);
                     $name=$get_name->Connect();
                     //system("start-stop-daemon \-Kp '$_SERVER[\'DOCUMENT_ROOT\']'/modules/record/devices/'$name['0']['name']'/pidrec.txt");
+                    
+                    //удаляем хвосты от записей
+                    //system(rm '$_SERVER[\'DOCUMENT_ROOT\']'/modules/record/'$name['0']['name']'/record.avi);
                     
                     $log_alert_end='<p><font color=orange>Внимание!Фоновая запись идет более допустимого значения. Процесс: '.$pidn.'. Камера №: '.$camera.'. Процесс перезапускается...</font></p>';
                     $file_end=fopen($_SERVER['DOCUMENT_ROOT'].'/log.txt',"a");
@@ -80,7 +80,42 @@ class Record {
             
         }
     }
-    public function EndRecord(){
+    public function EndRecord($monitor){
+        //получаем номер камеры в параметре
+        $this->monitor=$monitor;
         
+        //завершаем ивенты с этой камеры
+        $sql_get_events="select * from `events` where `end_time` is NULL and `monitor_id`='$this->monitor'";
+        $get_events=new Connection($sql_get_events);
+        $events=$get_events->Connect();
+        $sql_monitor_info="select * from `monitors` where `id`='$this->monitor'";
+        $monitor_info=new Connection($sql_monitor_info);
+        $monitor=$monitor_info->Connect();
+        $monitor_name=$monitor['0']['name'];
+        $event='События записи прерваны не были.';
+        if(!empty($events)){
+        $sql_end_events="update `events` set `end_time`=DATE_TIME where `monitor_id`='$this->monitor'";
+        $end_event= new Connection($sql_end_events);
+        $interrupt=$end_event->Connect();
+        $event='Были остановлены события: '.$interrupt['0']['id'];
+        //прерываем по пидам события
+        }
+
+        //завершаем эхо-запись
+        //Получаем пид процесса
+        $sql_get_echo="select * from `log_record` where `id_monitor`='$this->monitor'";
+        $get_echo=new Connection($sql_get_echo);
+        $echo=$get_echo->Connect();
+        $echo_pid=$echo['0']['pid'];
+        //system("start-stop-daemon \-Kp '$_SERVER[\'DOCUMENT_ROOT\']'/modules/record/devices/'$monitor_name'/pidrec.txt ");
+        
+        //Удаляем хвосты от процессов
+        //system(rm '$_SERVER[\'DOCUMENT_ROOT\']'/modules/record/'$monitor_name'/record.avi);
+        
+        //Логируем запись о завершении события пользователем
+        $dat=date("Y-m-d H:i:s");
+        $log_interrupt='<p><font color=white>'.$dat.'Запись с камеры '.$this->monitor.' с эхо-процессом '.$echo_pid.' завершена пользователем. '.$event.'</font></p>';
+        $file_interrupt=fopen($_SERVER['DOCUMENT_ROOT'].'/log.txt',"a");
+        fwrite ($file_interrupt, $log_interrupt);
     }
 }
