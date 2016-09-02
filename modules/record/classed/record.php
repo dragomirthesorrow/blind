@@ -1,6 +1,7 @@
 <?php
 //add path config
-require_once ('../../configs/path.config');
+//require_once ('../../configs/path.config');
+//echo $begin;
 require_once ($begin.'/classes/connect.php');
 class Record {
 
@@ -28,8 +29,8 @@ class Record {
         $log_rec->Connect();
     }
     public function CheckAndRestart(){
-        echo 'Проверка записей:';
-        require_once ($begin.'/configs/interval.config');
+        //echo $begin;
+        require_once '../../configs/interval.config';
         $dt=date("Y-m-d H:i:s");
         $date=strtotime(date("Y-m-d H:i:s"));
         //Получаем время записи от начала и сверяем с максимальным
