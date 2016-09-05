@@ -17,7 +17,7 @@ class Modect {
         
     }
     
-    public function DetectEnd() {
+    public function DetectTheEnd() {
         
     }
     
