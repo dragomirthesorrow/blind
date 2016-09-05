@@ -23,4 +23,8 @@ $get_cameras=new Connection($sql_get_cameras);
 $cameras=$get_cameras->Connect();
 foreach($cameras as $camera){
     echo $camera['name'];
+    $path=$camera['path'];
+    $record=new Modect();
+    $record->DetectTheBeginning($path);
+    $record->DetectTheEnd($path);
 }

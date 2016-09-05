@@ -13,11 +13,13 @@
  */
 class Modect {
     //put your code here
-    public function DetectTheBeginning() {
+    public function DetectTheBeginning($path) {
+        $this->path=$path;
         
     }
     
-    public function DetectTheEnd() {
+    public function DetectTheEnd($path) {
+        $this->path=$path;
         
     }
     
