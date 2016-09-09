@@ -1,13 +1,13 @@
 <?php
-include '../../configs/path.config';
+include '/var/www/html/configs/path.config';
 /*
  * Скрипт записи для каждого устройства
  */
 //Формируем запрос на получение всех устройств, с которых ведется запись
 $sql="select * from `monitors`";
 //Подключаемся к классу запроса и получаем ответ
-require_once($begin.'/classes/connect.php');
-require_once ($begin.'/modules/record/classed/record.php');
+require_once('/var/www/html/classes/connect.php');
+require_once ('/var/www/html/modules/record/classed/record.php');
 $monitorso = new Connection($sql);
 //$monitorso->$sql=$sql;
 $monitors=$monitorso->Connect();
@@ -24,7 +24,7 @@ foreach($monitors as $monitor){
 
         if($pidp == 0){
             //Если запись не идет, то начинаем
-        echo 'Запись не идет, начинаем';
+//        echo 'Запись не идет, начинаем';
     $rec=new Record;
     $rec->StartRecord($monitor_id,$pidp);
 }
@@ -33,4 +33,3 @@ foreach($monitors as $monitor){
     $restart->CheckAndRestart();
 
         }
-

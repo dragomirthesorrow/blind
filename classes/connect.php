@@ -1,5 +1,5 @@
 <?php
-require_once ($_SERVER['DOCUMENT_ROOT'].'/configs/database.config');
+require_once ('/var/www/html/configs/database.config');
 class Connection{
 
 public $sql;
