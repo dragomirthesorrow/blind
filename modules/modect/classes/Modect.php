@@ -22,6 +22,8 @@ class Modect {
         //Pдесь преобразуем переменные в нужные, а также получаем картинки для сверки
         $this->name=$name;
         $this->id=$id_mon;
+        //Теперь сюда всовываем бывший модуль коллектинга , но по новой схеме - должен логироваться мэйн фрэйм
+        
         
     }
     
@@ -71,7 +73,7 @@ echo 'work'.$this->name.'and'.$this->id;
 	} //exit;
     }
 
-   /*public function DetectTheEnd($name,$id_mon) {
+   /*public function DetectTheEnd() {
 	
 echo 'end';	
 	
