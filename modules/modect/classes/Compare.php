@@ -4,12 +4,12 @@ class Comparer
 {
 
     const
-        WIDTH = 600,
-        HEIGHT = 400;
+        WIDTH = 320,
+        HEIGHT = 240;
 
     public $Images = array();
 
-    public function __construct($Image1, $Image2 = null)
+    public function __construct($Image1, $Image2)
     {
         if (is_array($Image1))
         {
@@ -39,14 +39,14 @@ class Comparer
         $h = $d['height'];
         if ($w != self::WIDTH || $h != self::HEIGHT)
             $obj->cropImage(self::WIDTH, self::HEIGHT, 0, 0);
-        return $obj;
+        return $obj;print_r($obj);
     }
 
-    private function _getDiff($Img1, $Img2)
+    private function _getDiff($Image1, $Image2)
     {
-        $res = $Img1->compareImages($Img2, Imagick::METRIC_MEANSQUAREERROR);
+        $res = $Image1->compareImages($Image2, Imagick::METRIC_MEANSQUAREERROR);
         $diff = round($res[1]*1000);
-        return $diff;
+        return $diff;print_r ($diff);
     }
 
     public function Compare()
@@ -66,3 +66,4 @@ class Comparer
     }
 
 }
+
