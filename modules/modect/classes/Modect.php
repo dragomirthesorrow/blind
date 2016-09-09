@@ -16,20 +16,26 @@ require_once ('/var/www/html/classes/connect.php');
 $difference=$MIN_DIFF;
 
 class Modect {
-
-    public function DetectTheBeginning($name,$id_mon) {
+    public $name;
+    public $id_mon;
+    function __construct($name,$id_mon) {
+        //Pдесь преобразуем переменные в нужные, а также получаем картинки для сверки
         $this->name=$name;
-	$this->id=$id_mon;
+        $this->id=$id_mon;
+        
+    }
+    
+    public function DetectTheBeginning() {
 	//!!! Проверяем - нет ли сейчас события с моника, если нет, то пропускаем все это и переходим к мониторингу завершения.
 
 	$sql_event_now="select * from `events` where `monitor_id`='$this->id' and `end_time` IS NULL";
 	$event_now=new Connection($sql_event_now);
 	$now=$event_now->Connect();
-
+echo 'work'.$this->name.'and'.$this->id;
 	if(empty($now)){
 		//Получаем все картинки из директории девайса
 
-		$direct='/var/www/html/modules/record/devices/'.$this->name.'/*.jpg';//*/
+		$direct='/var/www/html/modules/record/devices/'.$this->name.'/*.jpg';
 		$filelist = glob($direct);
 		//Получаем длинну массива
 		$c=count($filelist);
@@ -56,26 +62,24 @@ class Modect {
 			$file1=fopen('/var/www/html/log.txt',"a");
 	        	fwrite ($file1, $log_text);
       		}else{
-            		exit;
-			$this->DetectTheEnd($this->name,$this->id);
+            		//exit;
+			//$this->DetectTheEnd($this->name,$this->id);
         	}
 	}else{
-		exit;
-		$this->DetectTheEnd($this->name,$this->id);
-	}
+		//exit;
+		//$this->DetectTheEnd($this->name,$this->id);
+	} //exit;
     }
 
-   public function DetectTheEnd($name,$id_mon) {
-        $this->name=$name;
-	$this->id=$id_mon;
+   /*public function DetectTheEnd($name,$id_mon) {
 	
-	
+echo 'end';	
 	
 	$sql_get_sevent="select * from `events` where `monitor_id`='$this->id' and `end_time` is NULL";
         $get_sevent=new Connection($sql_get_sevent);
         $sevent=$get_sevent->Connect();
 	if(empty($sevent)){
-		exit;
+		//exit;
 	}else{
 		$now=date("Y-m-d H:i:s");
 		$event_start=$sevent['0']['start_time'];
@@ -85,7 +89,7 @@ class Modect {
                 $sttime=strtotime($event_start);
                 $during=$ntime-$sttime;
 		if($during>10){
-			$direct='/var/www/html/modules/record/devices/'.$this->name.'/*.jpg';//*/
+			$direct='/var/www/html/modules/record/devices/'.$this->name.'/*.jpg';
                         $filelist = glob($direct);
                         //Получаем длинну массива
                         $c=count($filelist);
@@ -130,7 +134,7 @@ class Modect {
 
 		}
 	}
- }
+ }*/
 
 
 

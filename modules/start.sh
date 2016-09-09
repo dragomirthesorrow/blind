@@ -5,7 +5,7 @@
 dt=`date +%Y-%m-%d:%H:%M:%S`
 pd=`cat /var/www/html/mainpid`
 echo '<p><font color=blue>'${dt} 'Приложение запущено. Процесс: ' ${pd}'</font></p>'>>/var/www/html/log.txt;
-start-stop-daemon -Sbmp /var/www/html/modules/modect/pidic -x /usr/bin/php -- /var/www/html/modules/modect/ImageCollecter.php
+#start-stop-daemon -Sbmp /var/www/html/modules/modect/pidic -x /usr/bin/php -- /var/www/html/modules/modect/ImageCollecter.php
 I=0
 while [ 1 ]; do
 I=$(( I + 1));
