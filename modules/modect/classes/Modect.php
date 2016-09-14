@@ -139,6 +139,14 @@ class Modect {
                         $last_im=$filelist[$c];
                         $c2=$c-1;
                         $pre_last_img=$filelist[$c2];
+                        foreach($filelist as $key=>$file ){
+                            if($key < $c2){
+                                unlink($file); 
+                            }else{
+                                continue;
+                            }
+                        
+                        }
                         $image1 = new imagick($last_im);
                         $image2 = new imagick($pre_last_img);
                         $result = $image1->compareImages ($image2,  Imagick::METRIC_MEANSQUAREERROR);
