@@ -37,19 +37,21 @@ class Modect {
         $directcstr='/var/www/html/modules/record/devices/'.$this->name.'/*.jpg';
 	$filelistcstr = glob($directcstr);
         if(count($filelistcstr)<2){
-            echo count($filelistcstr);
+            //echo count($filelistcstr);
             $ctime1=strtotime(date("Y-m-d H:i:s"));
             $delta_time1=$ctime-$stime;
             $duration1=mktime(0,0,$delta_time);
             $frame1=date("H:i:s", $duration);
             system("start-stop-daemon -Sbmp /var/www/html/modules/record/devices/'$this->name'/pid -x /usr/bin/ffmpeg -- -i '$path' -an -ss '$frame' -r 1 -vframes 1 -f image2 /var/www/html/modules/record/devices/'$this->name'/'$frame1'_frame.jpg");
+            unlink("/var/www/html/modules/record/devices/'$this->name'/pid");
         }
-        echo count($filelistcstr);
+        //echo count($filelistcstr);
         $ctime=strtotime(date("Y-m-d H:i:s"));
         $delta_time=$ctime-$stime;
         $duration=mktime(0,0,$delta_time);
         $frame=date("H:i:s", $duration);
         system("start-stop-daemon -Sbmp /var/www/html/modules/record/devices/'$this->name'/pid1 -x /usr/bin/ffmpeg -- -i '$path' -an -ss '$frame' -r 1 -vframes 1 -f image2 /var/www/html/modules/record/devices/'$this->name'/'$frame'_frame.jpg");
+        unlink("/var/www/html/modules/record/devices/'$this->name'/pid1");
         //$this->DetectTheBeginning();
         
         }
@@ -85,18 +87,20 @@ class Modect {
                     }
                     
                 }
+                //echo $last_im.$pre_last_img;
                 $image1 = new imagick($last_im);
 		$image2 = new imagick($pre_last_img);
 		$result = $image1->compareImages ($image2,  Imagick::METRIC_MEANSQUAREERROR);
 		$diff = round($result[1]*100000,5);
                 global $difference;
+                //echo $diff;
 		if($diff>$difference){
 			//$time=date("Y-m-d H:i:s");
 			//Write the event into event base and log
 			$sql_add_event="insert into `events` (`id`,`start_time`,`end_time`,`monitor_id`,`unact`) values (NULL,'$this->now',NULL,'$this->id',NULL)";
 			$add_event=new Connection($sql_add_event);
 			$add_event->Connect();
-			$get_event_id="select * from `events` where `start_time`='$time' and `monitor_id`='$this->id'";
+			$get_event_id="select * from `events` where `start_time`='$this->now' and `monitor_id`='$this->id'";
 			$event_id=new Connection($get_event_id);
 			$event=$event_id->Connect();
 			$id_event=$event['0']['id'];
