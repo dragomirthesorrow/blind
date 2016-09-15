@@ -39,10 +39,11 @@ class Modect {
         if(count($filelistcstr)<2){
             //echo count($filelistcstr);
             $ctime1=strtotime(date("Y-m-d H:i:s"));
-            $delta_time1=$ctime-$stime;
-            $duration1=mktime(0,0,$delta_time);
-            $frame1=date("H:i:s", $duration);
-            system("start-stop-daemon -Sbmp /var/www/html/modules/record/devices/'$this->name'/pid -x /usr/bin/ffmpeg -- -i '$path' -an -ss '$frame' -r 1 -vframes 1 -f image2 /var/www/html/modules/record/devices/'$this->name'/'$frame1'_frame.jpg");
+            $delta_time1=$ctime1-$stime;
+            $duration1=mktime(0,0,$delta_time1);
+            $frame1=date("H:i:s", $duration1);
+            echo $frame1.'/';
+            system("start-stop-daemon -Sbmp /var/www/html/modules/record/devices/'$this->name'/pid -x /usr/bin/ffmpeg -- -i '$path' -an -ss '$frame' -r 1 -vframes 1 -f image2 /var/www/html/modules/record/devices/'$this->name'/'$frame1'_1frame.jpg");
             unlink("/var/www/html/modules/record/devices/'$this->name'/pid");
         }
         //echo count($filelistcstr);
@@ -50,7 +51,8 @@ class Modect {
         $delta_time=$ctime-$stime;
         $duration=mktime(0,0,$delta_time);
         $frame=date("H:i:s", $duration);
-        system("start-stop-daemon -Sbmp /var/www/html/modules/record/devices/'$this->name'/pid1 -x /usr/bin/ffmpeg -- -i '$path' -an -ss '$frame' -r 1 -vframes 1 -f image2 /var/www/html/modules/record/devices/'$this->name'/'$frame'_frame.jpg");
+        echo $frame.'/';
+        system("start-stop-daemon -Sbmp /var/www/html/modules/record/devices/'$this->name'/pid1 -x /usr/bin/ffmpeg -- -i '$path' -an -ss '$frame' -r 1 -vframes 1 -f image2 /var/www/html/modules/record/devices/'$this->name'/'$frame'_2frame.jpg");
         unlink("/var/www/html/modules/record/devices/'$this->name'/pid1");
         //$this->DetectTheBeginning();
         
@@ -62,7 +64,8 @@ class Modect {
 	$sql_event_now="select * from `events` where `monitor_id`='$this->id' and `end_time` IS NULL";
 	$event_now=new Connection($sql_event_now);
 	$now=$event_now->Connect();
-//echo 'work'.$this->name.'and'.$this->id;
+        $log_textDTE='DTE started 1.';
+        //echo 'work'.$this->name.'and'.$this->id;
 	if(empty($now)){
 		//Получаем все картинки из директории девайса
 
@@ -105,7 +108,7 @@ class Modect {
 			$event=$event_id->Connect();
 			$id_event=$event['0']['id'];
                         //system("mv '$last_im' /var/www/html/modules/record/devices/'$this->name'/mainframe.jpg");
-			$log_text='<p>'.$time.' Зафиксировано событие: '.$id_event.'</p>';
+			$log_text='<p>'.$this->now.' Зафиксировано событие: '.$id_event.'</p>';
 			$file1=fopen('/var/www/html/log.txt',"a");
 	        	fwrite ($file1, $log_text);
       		}else{
@@ -115,8 +118,8 @@ class Modect {
 	}else{
 		//exit;
 	} //exit;
-    
-        $this->DetectTheEnd();
+    //exit;
+        //$this->DetectTheEnd();
         }
 
    public function DetectTheEnd() {
@@ -126,6 +129,7 @@ class Modect {
 	$sql_get_sevent="select * from `events` where `monitor_id`='$this->id' and `end_time` is NULL";
         $get_sevent=new Connection($sql_get_sevent);
         $sevent=$get_sevent->Connect();
+        print_r($sevent);
 	if(empty($sevent)){
 		//exit;
 	}else{

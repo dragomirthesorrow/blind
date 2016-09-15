@@ -62,6 +62,9 @@ $nm=$name['0']['name'];
 			system("rm /var/www/html/modules/record/devices/'$nm'/record_old.avi");
 			system("mv /var/www/html/modules/record/devices/'$nm'/record.avi /var/www/html/modules/record/devices/'$nm'/record_old.avi");
 			system("rm /var/www/html/modules/record/devices/'$nm'/pidrec.txt");
+                                unlink("/var/www/html/modules/record/'.$monitor_name.'/*.jpg");
+        unlink("/var/www/html/modules/record/'.$monitor_name.'/pid");
+        unlink("/var/www/html/modules/record/'.$monitor_name.'/pid1");
                     $log_alert_end='<p><font color=orange>[Atention]'.$dt.'Внимание!Фоновая запись идет более допустимого значения. Процесс: '.$pidn.'. Камера №: '.$camera.'. Процесс перезапускается...</font></p>';
                     $file_end=fopen('/var/www/html/log.txt',"a");
                     fwrite ($file_end, $log_alert_end);
@@ -99,7 +102,7 @@ $nm=$name['0']['name'];
         $sql_end_events="update `events` set `end_time`=DATE_TIME where `monitor_id`='$this->monitor'";
         $end_event= new Connection($sql_end_events);
         $interrupt=$end_event->Connect();
-        $event='Были остановлены события: '.$interrupt['0']['id'];
+        $event='Были остановлены события: '.$events['0']['id'];
         //прерываем по пидам события
         }
 
@@ -115,7 +118,10 @@ $nm=$name['0']['name'];
 //	system("rm /var/www/html/modules/record/devices/'$monitor_name'/record.avi");
 	system("rm /var/www/html/modules/record/devices/'$monitor_name'/pidrec.txt");
         system("mv /var/www/html/modules/record/devices/'$monitor_name'/record.avi /var/www/html/modules/record/devices/'$monitor_name'/record_old.avi");
-
+        unlink("/var/www/html/modules/record/'.$monitor_name.'/*.jpg");
+        unlink("/var/www/html/modules/record/'.$monitor_name.'/pid");
+        unlink("/var/www/html/modules/record/'.$monitor_name.'/pid1");
+        
         //Логируем запись о завершении события пользователем
         $dat=date("Y-m-d H:i:s");
         $log_interrupt='<p><font color=grey>'.$dat.' Запись с камеры '.$this->monitor.' с эхо-процессом '.$echo_pid.' завершена пользователем. '.$event.'</font></p>';

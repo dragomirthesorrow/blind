@@ -14,6 +14,8 @@ foreach($cameras as $camera){
     $name=$camera['name'];
     $detect=new Modect($name,$id_mon);
     $detect->DetectTheBeginning();
+    $detect->DetectTheEnd();
     //$end=new Modect();
     //$end->DetectTheEnd();
+    //unset($detect);
 }

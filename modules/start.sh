@@ -11,7 +11,7 @@ while [ 1 ]; do
 I=$(( I + 1));
 sleep 1;
 php /var/www/html/modules/record/index.php
-#start-stop-daemon -Sbmp /var/www/html/modules/modect/pidic -x /usr/bin/php -- /var/www/html/modules/modect/ImageCollecter.php
+sleep 2;
 php /var/www/html/modules/modect/modect.php
 #remover jpg ов
 done
