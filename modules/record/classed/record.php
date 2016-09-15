@@ -59,12 +59,15 @@ $nm=$name['0']['name'];
                     system("start-stop-daemon -Kp /var/www/html/modules/record/devices/'$nm'/pidrec.txt");
                     //удаляем хвосты от записей
 //print_r($name);
-			system("rm /var/www/html/modules/record/devices/'$nm'/record_old.avi");
-			system("mv /var/www/html/modules/record/devices/'$nm'/record.avi /var/www/html/modules/record/devices/'$nm'/record_old.avi");
-			system("rm /var/www/html/modules/record/devices/'$nm'/pidrec.txt");
-                                unlink("/var/www/html/modules/record/'.$monitor_name.'/*.jpg");
-        unlink("/var/www/html/modules/record/'.$monitor_name.'/pid");
-        unlink("/var/www/html/modules/record/'.$monitor_name.'/pid1");
+                    system("rm /var/www/html/modules/record/devices/'$nm'/record_old.avi");
+                    system("mv /var/www/html/modules/record/devices/'$nm'/record.avi /var/www/html/modules/record/devices/'$nm'/record_old.avi");
+                    system("rm /var/www/html/modules/record/devices/'$nm'/pidrec.txt");
+                    $pid_1='/var/www/html/modules/record/devices/'.$monitor_name.'/pid';
+                    $pid_2='/var/www/html/modules/record/devices/'.$monitor_name.'/pid1';
+                    $dir_for_clean='/var/www/html/modules/record/devices/'.$monitor_name.'/*.jpg';
+                    array_map('unlink', glob($dir_for_clean));
+                    unlink($pid_1);
+                    unlink($pid_2);
                     $log_alert_end='<p><font color=orange>[Atention]'.$dt.'Внимание!Фоновая запись идет более допустимого значения. Процесс: '.$pidn.'. Камера №: '.$camera.'. Процесс перезапускается...</font></p>';
                     $file_end=fopen('/var/www/html/log.txt',"a");
                     fwrite ($file_end, $log_alert_end);
@@ -115,12 +118,14 @@ $nm=$name['0']['name'];
         system("start-stop-daemon \-Kp /var/www/html/modules/record/devices/'$monitor_name'/pidrec.txt ");
 
         //Удаляем хвосты от процессов
-//	system("rm /var/www/html/modules/record/devices/'$monitor_name'/record.avi");
 	system("rm /var/www/html/modules/record/devices/'$monitor_name'/pidrec.txt");
         system("mv /var/www/html/modules/record/devices/'$monitor_name'/record.avi /var/www/html/modules/record/devices/'$monitor_name'/record_old.avi");
-        unlink("/var/www/html/modules/record/'.$monitor_name.'/*.jpg");
-        unlink("/var/www/html/modules/record/'.$monitor_name.'/pid");
-        unlink("/var/www/html/modules/record/'.$monitor_name.'/pid1");
+        $pid_1='/var/www/html/modules/record/devices/'.$monitor_name.'/pid';
+        $pid_2='/var/www/html/modules/record/devices/'.$monitor_name.'/pid1';
+        $dir_for_clean='/var/www/html/modules/record/devices/'.$monitor_name.'/*.jpg';
+        array_map('unlink', glob($dir_for_clean));
+        unlink($pid_1);
+        unlink($pid_2);
         
         //Логируем запись о завершении события пользователем
         $dat=date("Y-m-d H:i:s");
