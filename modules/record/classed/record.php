@@ -91,7 +91,7 @@ $nm=$name['0']['name'];
     public function EndRecord($monitor){
         //получаем номер камеры в параметре
         $this->monitor=$monitor;
-
+        $tm=date("Y-m-d H:i:s");
         //завершаем ивенты с этой камеры
         $sql_get_events="select * from `events` where `end_time` is NULL and `monitor_id`='$this->monitor'";
         $get_events=new Connection($sql_get_events);
@@ -102,7 +102,7 @@ $nm=$name['0']['name'];
         $monitor_name=$monitor['0']['name'];
         $event='События записи прерваны не были.';
         if(!empty($events)){
-        $sql_end_events="update `events` set `end_time`=DATE_TIME where `monitor_id`='$this->monitor'";
+        $sql_end_events="update `events` set `end_time`='$tm' where `monitor_id`='$this->monitor'";
         $end_event= new Connection($sql_end_events);
         $interrupt=$end_event->Connect();
         $event='Были остановлены события: '.$events['0']['id'];

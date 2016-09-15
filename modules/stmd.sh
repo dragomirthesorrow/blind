@@ -10,7 +10,7 @@ I=0
 while [ 1 ]; do
 I=$(( I + 1));
 sleep 1;
-php /var/www/html/modules/record/index.php
+#php /var/www/html/modules/record/index.php
 php /var/www/html/modules/modect/modect.php
 #remover jpg ов
 done
