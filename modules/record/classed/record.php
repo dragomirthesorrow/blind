@@ -14,6 +14,8 @@ class Record {
         $cam_path=$cam['0']['path'];//Путь камеры
         $cam_name=$cam['0']['name'];//Имя камеры для папок
         //Стартуем запись, логируем событие
+        $dir_for_clean='/var/www/html/modules/record/devices/'.$monitor_name.'/*.jpg';
+        array_map('unlink', glob($dir_for_clean));
         system("start-stop-daemon -Sbmp /var/www/html/modules/record/devices/'$cam_name'/pidrec.txt -x /usr/bin/ffmpeg -- -i '$cam_path' -acodec copy -vcodec copy -y /var/www/html/modules/record/devices/'$cam_name'/record.avi");
         //Лог для файла:
         $system_pid_file=file('/var/www/html/modules/record/devices/'.$cam_name.'/pidrec.txt');
@@ -65,6 +67,7 @@ $nm=$name['0']['name'];
                     $pid_1='/var/www/html/modules/record/devices/'.$monitor_name.'/pid';
                     $pid_2='/var/www/html/modules/record/devices/'.$monitor_name.'/pid1';
                     $dir_for_clean='/var/www/html/modules/record/devices/'.$monitor_name.'/*.jpg';
+                    //sleep(1);
                     array_map('unlink', glob($dir_for_clean));
                     unlink($pid_1);
                     unlink($pid_2);
