@@ -38,6 +38,8 @@ class Modect {
         $directcstr='/var/www/html/modules/record/devices/'.$this->name.'/*.jpg';
 	$filelistcstr = glob($directcstr);
         if(count($filelistcstr)<2){
+            $dir_for_clean='/var/www/html/modules/record/devices/'.$this->name.'/00:59:*.jpg';
+            array_map('unlink', glob($dir_for_clean));
             //echo count($filelistcstr);
             $ctime1=strtotime(date("Y-m-d H:i:s"));
             $delta_time1=$ctime1-$stime-'1';
