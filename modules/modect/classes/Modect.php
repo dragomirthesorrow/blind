@@ -18,10 +18,12 @@ $difference=$MIN_DIFF;
 class Modect {
     public $name;
     public $id_mon;
-    function __construct($name,$id_mon) {
+    public $sence;
+    function __construct($name,$id_mon,$sence) {
         //Pдесь преобразуем переменные в нужные, а также получаем картинки для сверки
         $this->name=$name;
         $this->id=$id_mon;
+        $this->sence=$sence;
         $this->now=date("Y-m-d H:i:s");
         //Теперь сюда всовываем бывший модуль коллектинга , но по новой схеме - должен логироваться мэйн фрэйм
         //Получаем мэйнфрейм для декта, если такогого нет.
@@ -62,7 +64,7 @@ class Modect {
 	$sql_event_now="select * from `events` where `monitor_id`='$this->id' and `end_time` IS NULL";
 	$event_now=new Connection($sql_event_now);
 	$now=$event_now->Connect();
-        $log_textDTE='DTE started 1.';
+        
         //echo 'work'.$this->name.'and'.$this->id;
 	if(empty($now)){
 		//Получаем все картинки из директории девайса
@@ -93,8 +95,14 @@ class Modect {
 		$image2 = new imagick($pre_last_img);
                 if(!$result = $image1->compareImages ($image2,  Imagick::METRIC_MEANSQUAREERROR)){ die();}
 		$diff = round($result[1]*100000,5);
-                global $difference;
-                //echo $diff;
+                //Получаем чувствительность камеры из базы данных
+                //global $difference;
+                /*$sql_settings="select * from `monitors` where `id`='$this->id'";
+                $monitor_settings=new Connection($sql_settings);
+                $settings=$monitor_settings->Connect();*/
+                $difference=$this->sence;
+                //echo 'Diff:'.$diff;
+                //print_r($settings);
 		if($diff>$difference){
 			//$time=date("Y-m-d H:i:s");
 			//Write the event into event base and log
@@ -164,7 +172,11 @@ class Modect {
                         $image4 = new imagick($pre_last_img);
                         if(!$result1 = $image3->compareImages ($image4,  Imagick::METRIC_MEANSQUAREERROR)){ die();}
                         $diff1 = round($result1[1]*100000,5);
-                        global $difference;
+                        //global $difference;
+                        /*$sql_settings_e="select * from `monitors` where `id`='$this->id'";
+                        $monitor_settings_e=new Connection($sql_settings_e);
+                        $settings_e=$monitor_settings_e->Connect();*/
+                        $difference=$this->sence;
                         //echo $diff1;
 			if($diff1<$difference){
 				$unact_loged=$sevent['0']['unact'];

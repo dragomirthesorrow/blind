@@ -12,7 +12,8 @@ $cameras=$get_cameras->Connect();
 foreach($cameras as $camera){
 	$id_mon=$camera['id'];
     $name=$camera['name'];
-    $detect=new Modect($name,$id_mon);
+    $sence=$camera['sence'];
+    $detect=new Modect($name,$id_mon,$sence);
     $detect->DetectTheBeginning();
     $detect->DetectTheEnd();
     //$end=new Modect();

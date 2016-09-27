@@ -11,7 +11,7 @@ $connect= mysqli_connect(HOST,USER,PASS,DB) or die (mysqli_error());
 //mysqli_select_db(DB,$connect);
 //mysqli_set_charset('utf8');
 $qu=mysqli_query($connect,$this->sql);
-if($qu==bool){ exit;}
+if($qu==bool){ $res=array(); return $res;}else{
                 $res=array();
                 //мое решение:(обратный массив)
                 while($data=mysqli_fetch_assoc($qu)){
@@ -19,6 +19,6 @@ if($qu==bool){ exit;}
                 }
                 return $res;
                 mysql_close();
-}
+}}
 }
 ?>

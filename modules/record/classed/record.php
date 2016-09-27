@@ -14,8 +14,6 @@ class Record {
         $cam_path=$cam['0']['path'];//Путь камеры
         $cam_name=$cam['0']['name'];//Имя камеры для папок
         //Стартуем запись, логируем событие
-        $dir_for_clean='/var/www/html/modules/record/devices/'.$monitor_name.'/*.jpg';
-        array_map('unlink', glob($dir_for_clean));
         system("start-stop-daemon -Sbmp /var/www/html/modules/record/devices/'$cam_name'/pidrec.txt -x /usr/bin/ffmpeg -- -i '$cam_path' -acodec copy -vcodec copy -y /var/www/html/modules/record/devices/'$cam_name'/record.avi");
         //Лог для файла:
         $system_pid_file=file('/var/www/html/modules/record/devices/'.$cam_name.'/pidrec.txt');
@@ -27,6 +25,8 @@ class Record {
         //Лог для базы
         $sql_log_rec="update `log_record` set `start_time`='$date',`pid`='$system_pid',`finished`=null  where `id_monitor`='$this->mon'";
         $log_rec = new Connection($sql_log_rec);
+        $dir_for_clean='/var/www/html/modules/record/devices/'.$cam_name.'/*.jpg';
+        array_map('unlink', glob($dir_for_clean));
         $log_rec->Connect();
     }
     public function CheckAndRestart(){
