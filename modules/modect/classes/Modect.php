@@ -47,7 +47,7 @@ class Modect {
             $frame1=date("H:i:s", $duration1);
             //echo $frame1.'/';
             system("start-stop-daemon -Sbmp /var/www/html/modules/record/devices/'$this->name'/pid -x /usr/bin/ffmpeg -- -i '$path' -an -ss '$frame' -r 1 -vframes 1 -f image2 /var/www/html/modules/record/devices/'$this->name'/'$frame1'_1frame.jpg");
-            unlink("/var/www/html/modules/record/devices/'$this->name'/pid");
+            unlink("/var/www/html/modules/record/devices/'.$this->name.'/pid");
         }
         $ctime=strtotime(date("Y-m-d H:i:s"));
         $delta_time=$ctime-$stime-'1';
@@ -55,7 +55,7 @@ class Modect {
         $frame=date("H:i:s", $duration);
         //echo $frame.'/';
         system("start-stop-daemon -Sbmp /var/www/html/modules/record/devices/'$this->name'/pid1 -x /usr/bin/ffmpeg -- -i '$path' -an -ss '$frame' -r 1 -vframes 1 -f image2 /var/www/html/modules/record/devices/'$this->name'/'$frame'_2frame.jpg");
-        unlink("/var/www/html/modules/record/devices/'$this->name'/pid1");
+        unlink("/var/www/html/modules/record/devices/'.$this->name.'/pid1");
         //$this->DetectTheBeginning();
         
         }
@@ -203,7 +203,7 @@ class Modect {
                                 $sql_end_event="update `events` set `end_time`='$this->now' where `id`='$event_id'";
                                 $end_event=new Connection($sql_end_event);
                                 $end_event->Connect();
-                                system("php /var/www/html/modules/event/index.php '$event_id'");
+                                system("php /var/www/html/modules/event/index.php '$event_id' '$this->name'");
                                 $LOG_END='<p>'.$this->now.' Событие завершено: '.$event_id.'</p>';
                                 $file3=fopen('/var/www/html/log.txt',"a");
                                 fwrite ($file3, $LOG_END);
