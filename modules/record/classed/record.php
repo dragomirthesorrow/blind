@@ -61,9 +61,10 @@ $nm=$name['0']['name'];
                     system("start-stop-daemon -Kp /var/www/html/modules/record/devices/'$nm'/pidrec.txt");
                     //удаляем хвосты от записей
 //print_r($name);
-                    system("rm /var/www/html/modules/record/devices/'$nm'/record_old.avi");
-                    system("mv /var/www/html/modules/record/devices/'$nm'/record.avi /var/www/html/modules/record/devices/'$nm'/record_old.avi");
-                    system("rm /var/www/html/modules/record/devices/'$nm'/pidrec.txt");
+                    unlink("rm /var/www/html/modules/record/devices/'.$nm.'/record_old.avi");
+                    //system("rm /var/www/html/modules/record/devices/'$nm'/record_old.avi");
+                    rename("mv /var/www/html/modules/record/devices/'.$nm.'/record.avi", "/var/www/html/modules/record/devices/'.$nm.'/record_old.avi");
+                    unlink("rm /var/www/html/modules/record/devices/'.$nm.'/pidrec.txt");
                     $pid_1='/var/www/html/modules/record/devices/'.$monitor_name.'/pid';
                     $pid_2='/var/www/html/modules/record/devices/'.$monitor_name.'/pid1';
                     $dir_for_clean='/var/www/html/modules/record/devices/'.$monitor_name.'/*.jpg';
