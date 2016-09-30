@@ -1,6 +1,6 @@
 body{
 	background-color: #01270E;
-        background-image: url(images/background.jpg);
+        background-image: url(../images/background.jpg);
 }
 p{
 	text-align:center;
@@ -10,6 +10,7 @@ table{
 	margin: auto;
 	
 }
+
 th {
   font-weight: normal;
   color: #039;
@@ -28,18 +29,29 @@ input{
     border-radius: 3px;
 }
 .container{
-	background-color:white;
-	background-image:url(img/cam.png);
+        
 	width:90%;
 	min-height:100%;
 	margin: 0 auto;
 	position: absolute;
 	margin-left:5%;
-	border-radius: 10px; 
-	overflow:auto;
+ 
+	overflow: hidden;
 	}
+        .transp{
+            background-color:#0E8439;
+             opacity:0.5;
+             position: absolute;
+             width:90%;
+	min-height:100%;
+        margin-left: 5%;
+        border-radius: 10px;
+          top:0px;
+  left:0px;
+z-index:-1
+        }
 .head{
-	background-color:#DCDCDC;
+	background-color:green;
 	position:relative;
 	float:center;
 	margin-top:2%;
@@ -48,6 +60,73 @@ input{
 	height:10%;
 	border-radius: 10px; 
 
+}
+.menu{
+    position: relative;
+    margin: 0 auto;
+    margin-left: 30%;
+    width: 90%;
+    height: 40px;
+    margin-top: 15px;
+    margin-left: 5%;
+}
+.left_menu{
+   position: relative;
+    margin: 0 auto;
+   float: left;
+   left: 50%;
+   right: 50%;
+   
+}
+.right_menu{
+    position: relative;
+    float: left;
+    margin: 0 auto;
+     left: 50%;
+     right: 50%;
+}
+.menu_but{
+    position: relative;
+    float: left;
+     left: 50%;
+     right: 50%;
+    
+    margin: 0 auto;
+}
+.but_txt{
+    position: absolute;
+    
+}
+.left{
+    position: absolute;
+    width: 20%;
+    min-height: 50%;
+    margin-top: 15px;
+    margin-left: 5px;
+    background-color: green;
+    float: left;
+    border-radius: 10px;
+}
+.center{
+    position: absolute;
+    width: 75%;
+    min-height: 50%;
+    margin-top: 15px;
+    margin-left: 22%;
+    background-color: green;
+    float: left;
+    border-radius: 10px;
+}
+.footer{
+    position: absolute;
+    
+    bottom: 0;
+    left: 7%;
+    width: 86%;
+    height: 20px;
+    background-color: green;
+    border-radius: 20px;
+    
 }
 #navigate{
 	background-color:#96BBFA;
@@ -59,6 +138,8 @@ input{
 	border-radius: 10px;
 }
 .contentLog{
+        opacity: 0.9;
+        filter: alpha(Opacity=50);
 	background-color:#277542;
 	position:relative;
         float:center;

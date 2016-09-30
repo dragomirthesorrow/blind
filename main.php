@@ -4,22 +4,31 @@
 <html> 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
 <head>
-<title>Выгрузка видео</title>
- <link rel="stylesheet" type="text/css" href="style.css"> 
-<link rel="shortcut icon" href="./img/cam.ico" type="image/x-icon">
+<title>Blind 0.1.</title>
+ <link rel="stylesheet" type="text/css" href="css/style.css"> 
+<link rel="shortcut icon" href="./images/eye.ico" type="image/x-icon">
 </head>
-<body> <div class="container" "id="contentLog"> 
-<div class="content" id="content"> 
-<table id="top" class="top"> 
-<tr><td><?php echo 'Добрый день, '.$_SESSION['user_id'];?>
-<a href="index.php?logout=true">
-<img src="img/logout.png" width="30"/></a> </td><td></td><td></td></tr><tr><td></td><td><p align="right"><?php echo (date("d F Y ")); ?></p></td><td></td></tr> 
-<tr><td></td><td><p><B>ZM-exporting script interface v2.2</B></p></td><td></td></tr> </table> </div> <div class="navigate" id="navigate"><p><a href="?">Main</a> <a href="?page=log">Log</a></p></div> <div class="content" 
-id="content"> <?php if(empty($_GET['page'])){
-	include_once('html/show_cams.html');
-}elseif(!empty($_GET['page'])){
-	$page=$_GET['page'];
-	if($page=='monitor'){
-	include_once('html/show_events.html');}else{include_once('html/'.$page.'.html');}
-}
-?> </div> <p>&#169; AO</p> </div> </body> </html>
+<body> 
+    <div class="container">
+        
+        <div class="head">
+            <table><tr><td><?php echo date("Y-m-d H:i:s"); ?></td><td>Добрый день, <?php echo $_SESSION['user_id'];?>!</td></tr></table>
+        </div>
+        <div class="menu"><p>
+            <div class="left_menu"><img style="padding:0px; margin:0px; margin-top: 1px" src="./images/left_item.png" height="40"/></div><?php 
+            require_once './classes/connect.php';
+            $sql_get_items="select * from `user_pages`";
+            $get_items=new Connection($sql_get_items);
+            $items=$get_items->Connect();
+            foreach ($items as $item){
+            echo '<div class="menu_but"><div class="but_txt">'.$item['name'].'</div> <a href="./'.$item['code'].'"
+       OnMouseOver="document.getElementById(\'B_B\').src=\'./images/item_light.png\'"
+       OnMouseOut="document.getElementById(\'B_B\').src=\'./images/item.png\'"><img id="B_B" style=\"padding:0px; margin:0px;\" src="./images/item.png" height="40"/></a></div>';} ?><div class="right_menu"><img style="padding:0px; margin:0px;" src="./images/right_item.png" height="40"/></div>
+            </p></div>
+        <div class="left"><p>main left</p></div>
+        <div class="center">main center</div>
+        
+    </div>
+    <div class="transp"></div>
+    <div class="footer">blind version 0.1.0</div>
+</body> </html>
