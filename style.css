@@ -1,6 +1,5 @@
 body{
-	background-color: #01270E;
-        background-image: url(images/background.jpg);
+	background-color:grey;
 }
 p{
 	text-align:center;
@@ -18,14 +17,9 @@ th {
 }
 td{
 	width:20%;
-	border-bottom: 1px solid #1D482C;
+	border-bottom: 1px solid #ccc;
   	padding: 9px 8px;
 	transition: .3s linear;
-}
-input{
-    background-color: #77AF8B;
-    border: 1px solid #1D482C;
-    border-radius: 3px;
 }
 .container{
 	background-color:white;
@@ -59,7 +53,7 @@ input{
 	border-radius: 10px;
 }
 .contentLog{
-	background-color:#277542;
+	background-color:#DCDCDC;
 	position:relative;
         float:center;
 	margin-top:2%;

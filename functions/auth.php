@@ -3,7 +3,7 @@
 session_start();
 //echo 'auth';
 //Подключаем конфигурационный файл
-include_once ("./configs/ldap.php");
+include_once ("/var/www/html/configs/ldap.php");
  
 // Logout
 if (isset($_GET['logout']))
