@@ -12,7 +12,7 @@
     <div class="container">
         
         <div class="head">
-            <table><tr><td><?php echo date("Y-m-d H:i:s"); ?></td><td>Добрый день, <?php echo $_SESSION['user_id'];?>!</td></tr></table>
+            <table><tr><td><?php echo date("Y-m-d H:i:s"); ?></td><td></td><td></td><td></td><td></td><td>Добрый день, <?php echo $_SESSION['user_id'];?>!</td><td> <form name="logout" action="../functions/auth_user.php"><input type="image" src="images/exit.png" height="40"/><input type="hidden" name="logout" value="exit"/></form></td></tr></table>
         </div>
         <div class="menu"><p>
             <div class="left_menu"><img style="padding:0px; margin:0px; margin-top: 1px" src="./images/left_item.png" height="40"/></div><?php 
@@ -25,8 +25,18 @@
        OnMouseOver="document.getElementById(\'B_B\').src=\'./images/item_light.png\'"
        OnMouseOut="document.getElementById(\'B_B\').src=\'./images/item.png\'"><img id="B_B" style=\"padding:0px; margin:0px;\" src="./images/item.png" height="40"/></a></div>';} ?><div class="right_menu"><img style="padding:0px; margin:0px;" src="./images/right_item.png" height="40"/></div>
             </p></div>
-        <div class="left"><p>main left</p></div>
-        <div class="center">main center</div>
+        <div class="left">
+            <p>main left</p>
+        </div>
+        <div class="center">
+            <?php
+            if(!isset($_GET['monid'])){
+                include_once 'html/show_cams.html';
+            }else{
+                include_once 'html/show_events.html';
+            }
+            ?>
+        </div>
         
     </div>
     <div class="transp"></div>

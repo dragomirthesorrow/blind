@@ -13,7 +13,7 @@ if (isset($_GET['logout']))
             unset($_SESSION['user_id']);  
             setcookie('login', '', 0, "/");
             setcookie('password', '', 0, "/");
-            header('Location: index.php');
+            header('Location: ../index.php');
             exit;
       }
 }
@@ -50,7 +50,7 @@ if (isset($_POST['login']) && isset($_POST['password']))
             }
             else
                   {
-                  die('Вы ввели неправильный логин или пароль. попробуйте еще раз<br /> <a href="./index.php">Вернуться назад</a>');
+                  die('Вы ввели неправильный логин или пароль. попробуйте еще раз<br /> <a href="../index.php">Вернуться назад</a>');
             }
       }
  
@@ -63,7 +63,7 @@ if (isset($_POST['login']) && isset($_POST['password']))
       }
       else
             {
-            die('К сожалению, вам доступ закрыт<br /> <a href="./index.php">Вернуться назад</a>');
+            die('К сожалению, вам доступ закрыт<br /> <a href="../index.php">Вернуться назад</a>');
       }
 }
 ?>

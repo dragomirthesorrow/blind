@@ -28,6 +28,15 @@ input{
     border: 1px solid #1D482C;
     border-radius: 3px;
 }
+a:link{
+    color: #439C34;
+}
+a:visited{
+    color: #36702B;
+}
+a:active{
+    color: #00FF00;
+}
 .container{
         
 	width:90%;
@@ -36,7 +45,8 @@ input{
 	position: absolute;
 	margin-left:5%;
  
-	overflow: hidden;
+	overflow: auto;
+        margin-bottom: 5%;
 	}
         .transp{
             background-color:#0E8439;
@@ -90,11 +100,12 @@ z-index:-1
     float: left;
      left: 50%;
      right: 50%;
-    
     margin: 0 auto;
+    vertical-align: bottom;
 }
 .but_txt{
     position: absolute;
+    vertical-align: bottom;
     
 }
 .left{
@@ -118,7 +129,7 @@ z-index:-1
     border-radius: 10px;
 }
 .footer{
-    position: absolute;
+    position: relative;
     
     bottom: 0;
     left: 7%;

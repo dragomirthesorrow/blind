@@ -40,15 +40,19 @@ if($event_start_time_s<$s_rec_s){
     //сплит
     system("start-stop-daemon -Sbmp /var/www/html/modules/record/devices/'$cam_name'/pid_event_spl -x /usr/bin/ffmpeg -- -i concat: \"'$path_res'/'$id_event'_1.avi|'$path_res'/'$id_event'_2.avi\" -c copy '$video_storage'/'$id_event'.avi > /var/www/html/modules/event/event_mod.log");
     //system("start-stop-daemon -Sbmp /var/www/html/modules/record/devices/'$cam_name'/pid_event -x /usr/bin/ffmpeg -- -ss '$start' '$duration' -i '$path_res'/record.avi -vcodec copy '$video_storage'/'$id_event'.avi > /var/www/html/modules/event/event_mod.log");
+    system("start-stop-daemon -Sbmp /var/www/html/modules/record/devices/'$cam_name'/pid_ss -x /usr/bin/ffmpeg -- -i '$video_storage''$id_event'.avi -an -ss 00:00:01 -r 1 -vframes 1 -f '$video_storage'$id_levent'_screenshot.jpg");
     unlink("/var/www/html/modules/record/devices/'.$cam_name.'/pid_event_spl");
     unlink("/var/www/html/modules/record/devices/'.$cam_name.'/'.$id_event.'_1.avi");
     unlink("/var/www/html/modules/record/devices/'.$cam_name.'/'.$id_event.'_2.avi");
+    unlink("/var/www/html/modules/record/devices/'.$cam_name.'/pid_ss");
 }else{
     //фф с текущей
     $start=date("H:i:s", mktime(0,0,$event_start_time_s - $s_rec_s - $prerecord_interval));
     $duration=date("H:i:s", mktime(0,0,$event_end_time_s - $event_start_time_s + $prerecord_interval + $postrecord_interval));
     system("start-stop-daemon -Sbmp /var/www/html/modules/record/devices/'$cam_name'/pid_event -x /usr/bin/ffmpeg -- -i '$path_res'/record.avi -ss '$start' -t '$duration' -vcodec copy -acodec copy '$video_storage'/'$id_event'.avi > /var/www/html/modules/event/event_mod.log");
+    system("start-stop-daemon -Sbmp /var/www/html/modules/record/devices/'$cam_name'/pid_ss -x /usr/bin/ffmpeg -- -i '$video_storage''$id_event'.avi -an -ss 00:00:01 -r 1 -vframes 1 -f '$video_storage'$id_levent'_screenshot.jpg");
     unlink("/var/www/html/modules/record/devices/'.$cam_name.'/pid_event");
+    unlink("/var/www/html/modules/record/devices/'.$cam_name.'/pid_ss");
     //$d4=date("H:i:s", mktime(0,0,$D2-$D1));
 }
 

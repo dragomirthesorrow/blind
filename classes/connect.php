@@ -9,7 +9,7 @@ public function __construct($sql){
 function Connect(){
 $connect= mysqli_connect(HOST,USER,PASS,DB) or die (mysqli_error());
 //mysqli_select_db(DB,$connect);
-mysqli_set_charset('utf8');
+//mysqli_set_charset('utf8');
 $qu=mysqli_query($connect,$this->sql);
 if($qu==bool){ $res=array(); return $res;}else{
                 $res=array();
