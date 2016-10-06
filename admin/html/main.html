@@ -6,11 +6,36 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Blind 0.1.</title>
+        <link rel="stylesheet" type="text/css" href="../css/style_tool.css"> 
+        <link rel="shortcut icon" href="../images/eye_tool.ico" type="image/x-icon">
     </head>
     <body>
-        <div>TODO write content</div>
+        <script src="js/addcamera.js"></script>
+        <div class="content">
+            <table>
+                <tr>
+                    <td>
+                        
+                        <a href="#" onclick="window.open('tools/addcamera.php','Adding camera','left=400, top=150,menubar=no, location=no, toolbar=no,width=600,height=600');">Добавить камеру</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Камеры добавленные в систему:</p>
+                        <?php
+                        require_once($_SERVER['DOCUMENT_ROOT'].'/classes/connect.php');
+                        $sql_get_cameras="select * from `monitors`";
+                        $get_cameras=new Connection($sql_get_cameras);
+                        $cameras=$get_cameras->Connect();
+                        foreach($cameras as $camera){ 
+                        echo '<p><a href="#" onclick="window.open(\'tools/camera_settings.php?cam='.$camera['id'].'&cam_name='.$camera['name'].'\', \''.$camera['name'].'\',\'left=400, top=150,menubar=no, location=no, toolbar=no,width=600,height=600\')">'.$camera['name'].'</a></p>';
+                        }
+                        ?>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </body>
 </html>

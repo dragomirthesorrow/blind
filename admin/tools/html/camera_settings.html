@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Настройка <?php echo $_GET['cam_name'];?></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="../../../css/settings_style.css">
+    </head>
+    <body>
+        <div class='cont_mod'>
+            <form name="set_cam" action="functions/camera_set.php" method="POST">
+            <table>
+                <tr><td colspan="2"><p align='center'><input type="hidden" name="id_cam" value="<?php echo $_GET['cam']; ?>"/> Настройка камеры <?php echo $_GET['cam_name']; ?></p></td></tr>
+                <tr><td>Id: </td><td><?php echo $_GET['cam']; ?></td></tr>
+                <tr><td>Название: </td><td><input type="text" name="name_cam" value="<?php echo $_GET['cam_name']; ?>"/></td></tr>
+                <tr><td>Путь rtsp: </td><td><input type="text" name="path_cam" value="<?php echo $cam_path; ?>"/></td></tr>
+                <tr><td>Чувствительность: </td><td><input type="text" name="sence_cam" value="<?php echo $cam_sence; ?>"</td></tr>
+                <tr>
+                    <td>Функция: </td>
+                    <td>
+                        <select name="func_cam">
+                            <option value="<?php echo $cam_func; ?>"><?php echo $cam_func; ?></option>
+                            <?php 
+                            foreach($funcs as $func){
+                            echo '<option value="'.$func['name'].'">'.$func['name'].'</option>';
+                            }
+                            ?>
+                        </select>
+                    </td>
+                </tr>
+                <tr><td colspan='2'><input type='submit' value="Изменить"/></td></tr>
+            </table>
+            </form>
+            <p><?php echo $act; ?></p>
+        </div>
+    </body>
+</html>

@@ -5,8 +5,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-echo 'main admin tools';
+include_once './html/main.html';
 ?>
 -добавление камеры ( вход в каждую камеру с изменением настроек)
 -изменение файлов конфигурации
