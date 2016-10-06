@@ -19,7 +19,7 @@ class Show{
 		$eventso->sql=$sql;
 		$events=$eventso->Connect();
 		foreach($events as $e){ 
-		echo '<tr><td>'.$e['start_time'].'</td><td><a href="'.$video_storage.$e['id'].'.avi" type="application/file"">'.$e['id'].'<img src="'.$video_storage.$e['Id'].'_screenshot.jpg" width="80"/>  </a>';
+		echo '<tr><td>'.$e['start_time'].'</td><td><a href="'.$video_storage.$e['id'].'.avi" type="application/file"">'.$e['id'].'  </a>';
 		$file=$video_storage.$e['id'].'.avi';
 		$size=filesize($file);
 		if($size==0){echo '<font color=red>Файл не был записан или записан некорректно.</font>';}
@@ -27,4 +27,5 @@ class Show{
 		}
 	}
 }
+//<img src="'.$video_storage.$e['id'].'_screenshot.jpg" width="80"/>
 ?>

@@ -3,7 +3,7 @@
 session_start();
 //echo 'auth';
 //Подключаем конфигурационный файл
-include_once ("/var/www/html/configs/ldap.php");
+include_once ($_SERVER['DOCUMENT_ROOT'].'/configs/ldap.config');
  
 // Logout
 if (isset($_GET['logout']))
@@ -21,7 +21,7 @@ if (isset($_GET['logout']))
 //Если пользователь уже аутентифицирован, то перебросить его на страницу main.php
 if (isset($_SESSION['user_id']))
       {
-      header('Location: ./main.php');
+      header('Location: ../admin/main.php');
       exit;
 }
  
@@ -50,7 +50,7 @@ if (isset($_POST['login']) && isset($_POST['password']))
             }
             else
                   {
-                  die('Вы ввели неправильный логин или пароль. попробуйте еще раз<br /> <a href="./index.php">Вернуться назад</a>');
+                  die('Вы ввели неправильный логин или пароль. попробуйте еще раз<br /> <a href="../admin/index.php">Вернуться назад</a>');
             }
       }
  
@@ -58,12 +58,12 @@ if (isset($_POST['login']) && isset($_POST['password']))
       if ($result_ent['count'] != 0)
             {
             $_SESSION['user_id'] = $login;
-            header('Location: main.php');
+            header('Location: ../admin/main.php');
             exit;
       }
       else
             {
-            die('К сожалению, вам доступ закрыт<br /> <a href="./index.php">Вернуться назад</a>');
+            die('К сожалению, вам доступ закрыт<br /> <a href="../admin/index.php">Вернуться назад</a>');
       }
 }
 ?>
