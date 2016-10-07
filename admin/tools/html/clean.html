@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Удаление записей</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="../../../css/settings_style.css"/>
+        <script src="../js/calendar.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <div class="cont_mod">
+            <form action="functions/clean.php" method="POST">
+            <table>
+                <tr>
+                    <td colspan="2"><p><B>Удаление записей вручную.</B></p></td>
+                </tr>
+                <tr>
+                    <td>С какаго числа</td><td>По какое число</td>
+                </tr>
+                <tr>
+                    <td><input type="text" name="since"   onfocus="this.select(); lcs(this)" onclick="event.cancelBubble=true; this.select(); lcs(this)"/></td>
+                    <td><input type="text" name="to"  onfocus="this.select(); lcs(this)" onclick="event.cancelBubble=true; this.select(); lcs(this)"/></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><input type="submit" value="Удалить"/></td>
+                </tr>
+            </table>
+            </form>
+            <?php echo $act; ?>
+        </div>
+    </body>
+</html>

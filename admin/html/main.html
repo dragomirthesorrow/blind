@@ -13,6 +13,16 @@ and open the template in the editor.
     </head>
     <body>
         <script src="js/addcamera.js"></script>
+        <div class="head">
+            
+            <form action="../../functions/auth.php" method="GET">
+                <p>Административный доступ. 
+                <input type="image" src="../../images/exit.png" height="40"/>
+                <input type="hidden" name="logout" value="logout"/>
+                    </p>
+
+            </form>
+        </div>
         <div class="content">
             <table>
                 <tr>
@@ -33,6 +43,16 @@ and open the template in the editor.
                         echo '<p><a href="#" onclick="window.open(\'tools/camera_settings.php?cam='.$camera['id'].'&cam_name='.$camera['name'].'\', \''.$camera['name'].'\',\'left=400, top=150,menubar=no, location=no, toolbar=no,width=600,height=600\')">'.$camera['name'].'</a></p>';
                         }
                         ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="#" onclick="window.open('tools/mainsettings.php','Main settings','left=400, top=150,menubar=no, location=no, toolbar=no,width=600,height=600');">Настройка интервалов времени и мест хранения</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="#" onclick="window.open('tools/clean.php','Clean','left=400, top=150,menubar=no, location=no, toolbar=no,width=900,height=600');">Удаление старых записей</a>
                     </td>
                 </tr>
             </table>

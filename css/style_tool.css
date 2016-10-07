@@ -26,6 +26,18 @@ th {
   border-bottom: 2px solid #6678b1;
   padding: 10px 8px;
 }
+a:link{
+    color: grey;
+    background: url(../images/lnk.png) repeat-x left bottom;
+}
+a:hover{
+    color: greenyellow;
+    background: url(../images/lnk.png) repeat-x left bottom;
+}
+a:visited{
+    color: grey;
+    background: url(../images/lnk.png) repeat-x left bottom;
+}
 td{
 	width:20%;
 	border-bottom: 1px solid #1D482C;
@@ -51,4 +63,10 @@ td{
 	width:90%;
 	min-height:70%;
 	border-radius: 10px; 
+}
+.head{
+    background-color: grey;
+    width: 90%;
+   margin-left: 5%;
+   border-radius: 10px;
 }

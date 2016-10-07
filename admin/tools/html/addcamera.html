@@ -9,8 +9,40 @@ and open the template in the editor.
         <title>Adding camera</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="../../../css/settings_style.css">
     </head>
     <body>
-        <div>adding camera</div>
+        <div class="cont_mod">
+            <form action="functions/camera_add.php" name="add_cam" method="POST">
+                <table>
+                    <tr>
+                        <td colspan="2">Добавление камеры</td>
+                    </tr>
+                    <tr>
+                        <td>Имя камеры: </td><td><input type="text" name="name" placeholder="Cam_XX" /></td>
+                    </tr>
+                    <tr>
+                        <td>Сетевой путь RTSP: </td><td><input type="text" name="path"/></td>
+                    </tr>
+                    <tr>
+                        <td>Режим: </td><td>
+                            <select name="func">
+                                <?php 
+                                foreach($funcs as $func){
+                                echo '<option value="'.$func['name'].'">'.$func['name'].'</option>';
+                                }
+                                ?>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Чувствительность: </td><td><input type="text" name="sence" placeholder="Оптимально более 80-ти"/></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><input type="submit" value="Добавить"/></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
     </body>
 </html>

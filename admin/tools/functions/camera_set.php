@@ -22,7 +22,7 @@ if($id_cam==$compare['0']['id'] && $name_cam==$compare['0']['name'] && $path_cam
     //echo 'comp';
     
 }else{
-$sql_update_cam="update `monitors` set ,`name`='$name_cam',`path`='$path_cam',`func`='$func_cam',`sence`='$sence_cam' where `id`='$id_cam'";
+$sql_update_cam="update `monitors` set `name`='$name_cam',`path`='$path_cam',`func`='$func_cam',`sence`='$sence_cam' where `id`='$id_cam'";
 $update_cam=new Connection($sql_update_cam);
 $update_cam->Connect();
 //destroy("$update_cam");

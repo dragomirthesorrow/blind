@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Main settings</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="../../../css/settings_style.css">
+    </head>
+    <body>
+        <div>
+            <form action="functions/ch_settings.php" method="POST">
+                <table>
+                    <tr><td colspan="3"><p><B>Основные настройки</B></p></td></tr>
+                    <tr><td>Название: </td><td>Значение: </td><td>Описание настройки: </td></tr>
+                    <tr><td>Длинна фоновой записи:</td><td><input type="text" name="max_rec_echo" value="<?php echo $mrt; ?>"/></td></tr>
+                    <tr><td>Длинна предзаписи: </td><td><input type="text" name="prer" value="<?php echo $prer; ?>"/></td><td></td></tr>
+                    <tr><td>Длинна постзаписи: </td><td><input type="text" name="pstr" value="<?php echo $pstr; ?>"/></td><td></td></tr>
+                    <tr><td>Путь для сохранения записей: </td><td><input type="text" name="path" value="<?php echo $path; ?>"/></td><td></td></tr>
+                    <tr><td colspan="3"><p><input type="submit" value="Внести изменения"/></p></td></tr>
+                </table>
+            </form>
+            <?php echo $act; ?>
+        </div>
+    </body>
+</html>

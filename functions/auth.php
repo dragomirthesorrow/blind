@@ -4,7 +4,7 @@ session_start();
 //echo 'auth';
 //Подключаем конфигурационный файл
 include_once ($_SERVER['DOCUMENT_ROOT'].'/configs/ldap.config');
- 
+//echo $_GET['logout'];
 // Logout
 if (isset($_GET['logout']))
 {
@@ -13,7 +13,7 @@ if (isset($_GET['logout']))
             unset($_SESSION['user_id']);  
             setcookie('login', '', 0, "/");
             setcookie('password', '', 0, "/");
-            header('Location: index.php');
+            header('Location: ../admin/index.php');
             exit;
       }
 }
