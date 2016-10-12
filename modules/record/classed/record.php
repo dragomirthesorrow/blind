@@ -7,7 +7,8 @@ class Record {
     public function StartRecord($monitor,$pid){
         $this->mon=$monitor;
         $this->pid=$pid;
-        //Получаем имя и путь до камеры
+        //echo $this->mon;
+//Получаем имя и путь до камеры
         $sql_get_cam="select * from `monitors` where `id`='$this->mon'";
         $get_cam = new Connection($sql_get_cam);
         $cam=$get_cam->Connect();
@@ -38,7 +39,7 @@ class Record {
         $sql_get_start="select * from `log_record` where `finished` is NULL";
         $get_start=new Connection($sql_get_start);
         $start=$get_start->Connect();
-        //print_r($start);
+//print_r($start);
         foreach($start as $time_arr){
             //Получаем дельту времени
             $camera=$time_arr['id_monitor'];
@@ -46,7 +47,7 @@ class Record {
             $time=strtotime($time_arr['start_time']);
             $delta=$date-$time;//Получили время с начала записи
             if($delta > $max_record_time){
-//                echo 'Больше!';
+//echo 'Больше!';
                 //Если запись идет более допустимого интервала - проверяем на наличие события, в случае отсутствия рестартуем запись и удаляем хвосты
                 $sql_check_event="select * from `events` where `end_time` is NULL and `monitor_id`='$camera'";
                 $check_event=new Connection($sql_check_event);
@@ -54,7 +55,7 @@ class Record {
                 if(empty($event)){
   //                  echo 'Записи события нет';//Рестартуем запись с новым пидом
                     //Завершаем запись
-                    $sql_get_name="select `name` from `monitors` where `id`='$camera'";
+                    $sql_get_name="select * from `monitors` where `id`='$camera'";
                     $get_name=new Connection($sql_get_name);
                     $name=$get_name->Connect();
 $nm=$name['0']['name'];

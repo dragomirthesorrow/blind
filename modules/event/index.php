@@ -1,7 +1,12 @@
 <?php
 require_once('/var/www/html/classes/connect.php');
-require_once('/var/www/html/configs/path.config');
+//require_once('/var/www/html/configs/path.config');
 require_once('/var/www/html/configs/interval.config');
+                $pattern="/\'(.+)\'/";
+                $lines2 = file('/var/www/html/configs/path.config');
+                preg_match($pattern, $lines2['2'],$matches_path);
+                $path=$matches_path['1'];
+                $video_storage=$path;
 $id_event=$argv[1];
 $cam_name=$argv[2];
 //echo $id_event;

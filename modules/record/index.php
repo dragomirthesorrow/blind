@@ -13,8 +13,8 @@ $monitorso = new Connection($sql);
 $monitors=$monitorso->Connect();
 //Для каждого стартуем запись, если запись не начата
 foreach($monitors as $monitor){
-    //echo $monitor['id'];
-    $sqlgetpid="select * from `log_record` where `id_monitor`='$monitor[id]' order by `id` desc limit 1";
+    $mid=$monitor['id'];
+    $sqlgetpid="select * from `log_record` where `id_monitor`='$mid' order by `id` desc limit 1";
     $getpid=new Connection($sqlgetpid);
     $pid_arr=$getpid->Connect();
     //print_r($pid_arr);
@@ -29,7 +29,8 @@ foreach($monitors as $monitor){
     $rec->StartRecord($monitor_id,$pidp);
 }
     //Проверяем длительности записи и рестартуем при необходимости
-    $restart=new Record;
-    $restart->CheckAndRestart();
+
 
         }
+    $restart=new Record;
+    $restart->CheckAndRestart();
