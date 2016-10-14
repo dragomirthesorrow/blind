@@ -26,15 +26,13 @@
        OnMouseOut="document.getElementById(\'B_B\').src=\'./images/item.png\'"><img id="B_B" style=\"padding:0px; margin:0px;\" src="./images/item.png" height="40"/></a></div>';} ?><div class="right_menu"><img style="padding:0px; margin:0px;" src="./images/right_item.png" height="40"/></div>
             </p></div>
         <div class="left">
-            <p>
+            
                 <?php
                 require_once 'classes/checktool.php';
                 $chck=new CheckTools();
                 $chck->CheckDevices();
                 
                 ?>
-            <table class="chk"><tr class="yyy"><td class="xxx"></td></tr></table>
-            </p>
         </div>
         <div class="center">
             <?php

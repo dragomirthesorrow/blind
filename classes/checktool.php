@@ -27,7 +27,7 @@ Class CheckTools{
             $sql_check_cameras="select * from `monitors`";
             $check_cameras=new Connection($sql_check_cameras);
             $check=$check_cameras->Connect();
-            echo '<table class="chk">';
+            //echo '<table class="chk">';
             foreach($check as $dev){
                 $path=$dev['path'];
                 $pattern="/\@(.+)\:/";
@@ -44,16 +44,16 @@ Class CheckTools{
                 preg_match($pat,$fli,$host_stat);
                 //print_r($host_stat);
                 file_put_contents($log, '');
-                echo '<tr class="yyy">';
+                //echo '<tr class="yyy">';
                 //<td class="xxx">222</td></tr>';
                 if(empty($host_stat)){
-                    echo '<td class="xxx_online">'.$dev['name'].'</td>';
+                    echo '<p>'.$dev['name'].'<img src="../images/online.png" weight="40"/></p>';
                 }else{
-                    echo '<td class="xxx_offline">'.$dev['name'].'</td';
+                    echo '<p>'.$dev['name'].'<img src="../images/offline.png" weight="40"/></p>';
                 }
-                echo '</tr>';
+                //echo '</tr>';
             }
-            echo '<table>';
+            //echo '<table>';
     }
 }
 
