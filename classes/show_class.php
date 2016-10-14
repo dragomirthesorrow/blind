@@ -8,7 +8,13 @@ class Show{
 		$camso=new Connection($sql);
 		$camso->sql=$sql;
 		$cams=$camso->Connect();
-		foreach($cams as $c){echo '<tr><td><a href="?monid='.$c['id'].'">'.$c['name'].'</a></td></tr>';}
+		foreach($cams as $c){
+                    preg_match("/@(.+):/",$c['path'],$ip_cam);
+                    $ip_c=$ip_cam['1'];
+                    //echo $ip_c;
+                    //Сделать распознавание камер.
+                    
+                    echo '<tr><td><a href="?monid='.$c['id'].'"><img id="stream" src="http://video:123456@'.$ip_c.'/mjpg/video.mjpg" alt="Press Reload if no image is displayed" style="cursor: crosshair;" width="320" height="240" border="0">'.$c['name'].'</a></td></tr>';}
 		$count=count($cams);
 		return $count;
 	}

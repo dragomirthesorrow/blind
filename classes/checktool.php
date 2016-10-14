@@ -27,6 +27,7 @@ Class CheckTools{
             $sql_check_cameras="select * from `monitors`";
             $check_cameras=new Connection($sql_check_cameras);
             $check=$check_cameras->Connect();
+            echo '<table class="chk">';
             foreach($check as $dev){
                 $path=$dev['path'];
                 $pattern="/\@(.+)\:/";
@@ -35,7 +36,7 @@ Class CheckTools{
                 $log="/var/www/html/ping_log";
                 $ping=system("ping -c1 '$ip_dev' >> '$log'");
                 $fl=file($log);
-                $pat="/0% packet loss/";
+                $pat="/100% packet loss/";
                 //echo $pat;
                 //print_r($fl);
                 $fli=implode(",", $fl);
@@ -43,13 +44,16 @@ Class CheckTools{
                 preg_match($pat,$fli,$host_stat);
                 //print_r($host_stat);
                 file_put_contents($log, '');
-                if(!empty($host_stat)){
-                    echo '<p>Камера '.$dev['name'].' доступна</p>';
+                echo '<tr class="yyy">';
+                //<td class="xxx">222</td></tr>';
+                if(empty($host_stat)){
+                    echo '<td class="xxx_online">'.$dev['name'].'</td>';
                 }else{
-                    echo '<p>Камера '.$dev['name'].' недоступна!</p>';
+                    echo '<td class="xxx_offline">'.$dev['name'].'</td';
                 }
+                echo '</tr>';
             }
-            
+            echo '<table>';
     }
 }
 

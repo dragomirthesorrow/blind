@@ -19,7 +19,21 @@ table{
 	margin: auto;
 	
 }
-
+.yyy{
+    text-align: center;
+    
+    }
+.xxx_online{
+    width: 150px;
+    background-image: url(../images/online.png);
+    background-repeat: no-repeat;
+    border-bottom: 0px;
+    }
+.xxx_offline{
+    background-image: url(../images/offline.png);
+    background-repeat: no-repeat;
+    border-bottom: 0px;
+    }
 th {
   font-weight: normal;
   color: #039;

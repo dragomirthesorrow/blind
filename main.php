@@ -31,7 +31,9 @@
                 require_once 'classes/checktool.php';
                 $chck=new CheckTools();
                 $chck->CheckDevices();
+                
                 ?>
+            <table class="chk"><tr class="yyy"><td class="xxx"></td></tr></table>
             </p>
         </div>
         <div class="center">

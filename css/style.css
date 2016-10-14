@@ -10,7 +10,36 @@ table{
 	margin: auto;
 	
 }
-
+.chk table{
+    text-align: center;
+    margin: auto;
+}
+.chk table td{
+    	width:20%;
+	border-bottom: 1px solid grey;
+        vertical-align: middle
+}
+.chk table th{
+      font-weight: normal;
+  color: white;
+  border-bottom: 2px solid #6678b1;
+  padding: 10px 8px
+}
+.yyy{
+    text-align: center;
+    
+    }
+.xxx_online{
+    width: 150px;
+    background-image: url(../images/online.png);
+    background-repeat: no-repeat;
+    border-bottom: 0px;
+    }
+.xxx_offline{
+    background-image: url(../images/offline.png);
+    background-repeat: no-repeat;
+    border-bottom: 0px;
+    }
 th {
   font-weight: normal;
   color: #039;
@@ -22,6 +51,7 @@ td{
 	border-bottom: 1px solid #1D482C;
   	padding: 9px 8px;
 	transition: .3s linear;
+        vertical-align: middle;
 }
 input{
     background-color: #77AF8B;
@@ -29,10 +59,10 @@ input{
     border-radius: 3px;
 }
 a:link{
-    color: #439C34;
+    color: #E49B14;
 }
 a:visited{
-    color: #36702B;
+    color: #439C34;
 }
 a:active{
     color: #00FF00;
