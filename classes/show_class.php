@@ -18,7 +18,9 @@ class Show{
                 preg_match($pattern, $lines2['2'],$matches_path);
                 $path=$matches_path['1'];
                 $video_storage=$path;
-                $vs=preg_replace("/var/www/html/", "",$path);
+                $pt="/\/var\/www\/html\//";
+                $vs=preg_replace($pt, "",$path);
+                //echo $vs;
 		$this->camid=$camid;
 		//echo $camid;
 		$sql=("select * from `events` where `monitor_id` in (select id from `monitors` where `id`='$camid') order by `start_time`");

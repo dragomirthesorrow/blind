@@ -57,5 +57,12 @@ and open the template in the editor.
                 </tr>
             </table>
         </div>
+        <div>
+            <?php
+            require_once('../classes/checktool.php');
+            $check=new CheckTools();
+            $check->CheckDevices();
+            ?>
+        </div>
     </body>
 </html>
