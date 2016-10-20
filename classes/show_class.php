@@ -12,9 +12,15 @@ class Show{
                     preg_match("/@(.+):/",$c['path'],$ip_cam);
                     $ip_c=$ip_cam['1'];
                     //echo $ip_c;
-                    //Сделать распознавание камер.
+                    //Распознаем устройство: ищем в пути название axis, если присутствует, то меняем способ вывода снэпа.
+                    preg_match("/(.+)axis(.+)/",$c['path'],$model);
+                    if(empty($model)){
+                        $image='<img id="foximg" src="http://video:123456@'.$ip_c.'/cgi-bin/cmd/encoder?SNAPSHOT" alt="Press Reload if no image is displayed"  width="320" height="240" border="0">';
+                    }else{
+                        $image='<img id="stream" src="http://video:123456@'.$ip_c.'/mjpg/video.mjpg" alt="Press Reload if no image is displayed" style="cursor: crosshair;" width="320" height="240" border="0">';
+                    }
                     
-                    echo '<tr><td><a href="?monid='.$c['id'].'"><img id="stream" src="http://video:123456@'.$ip_c.'/mjpg/video.mjpg" alt="Press Reload if no image is displayed" style="cursor: crosshair;" width="320" height="240" border="0">'.$c['name'].'</a></td></tr>';}
+                    echo '<tr><td><a href="?monid='.$c['id'].'">'.$image.$c['name'].'</a></td></tr>';}
 		$count=count($cams);
 		return $count;
 	}

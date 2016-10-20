@@ -1,7 +1,7 @@
 <?php
 require_once '/var/www/html/classes/connect.php';
 require_once '/var/www/html/modules/record/classed/record.php';
-$get_monitors="select * from `monitors`";
+$get_monitors="select * from `monitors` where `func`='modect'";
 $monitors=new Connection($get_monitors);
 $monitors_a=$monitors->Connect();
 foreach($monitors_a as $monitor){

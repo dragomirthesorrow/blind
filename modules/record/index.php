@@ -4,7 +4,7 @@ include '/var/www/html/configs/path.config';
  * Скрипт записи для каждого устройства
  */
 //Формируем запрос на получение всех устройств, с которых ведется запись
-$sql="select * from `monitors`";
+$sql="select * from `monitors` where `func`='modect'";
 //Подключаемся к классу запроса и получаем ответ
 require_once('/var/www/html/classes/connect.php');
 require_once ('/var/www/html/modules/record/classed/record.php');

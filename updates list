@@ -1,0 +1,6 @@
+1-update show_class (added diffenition devices function)
+2-add camera (bug with adding into log_record default record for monitor)
+3-record module index (function only for modect)
+4-record-> end.php (function only for modect)
+5-admin->tools->functions->camera_add.php (added setting the sence not default)
+6-admin->tools->functions->camera_set.php (ability to change name correctlt)
