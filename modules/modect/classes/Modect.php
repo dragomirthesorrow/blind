@@ -46,7 +46,7 @@ class Modect {
             $duration1=mktime(0,0,$delta_time1);
             $frame1=date("H:i:s", $duration1);
             //echo $frame1.'/';
-            system("start-stop-daemon -Sbmp /var/www/html/modules/record/devices/'$this->name'/pid -x /usr/bin/ffmpeg -- -i '$path' -an -ss '$frame' -r 1 -vframes 1 -f image2 /var/www/html/modules/record/devices/'$this->name'/'$frame1'_1frame.jpg");
+            system("start-stop-daemon -Sbmp /var/www/html/modules/record/devices/'$this->name'/pid  -u www-data -x /usr/bin/ffmpeg -- -i '$path' -an -ss '$frame' -r 1 -vframes 1 -f image2 /var/www/html/modules/record/devices/'$this->name'/'$frame1'_1frame.jpg");
             unlink("/var/www/html/modules/record/devices/'.$this->name.'/pid");
         }
         $ctime=strtotime(date("Y-m-d H:i:s"));
@@ -54,7 +54,7 @@ class Modect {
         $duration=mktime(0,0,$delta_time);
         $frame=date("H:i:s", $duration);
         //echo $frame.'/';
-        system("start-stop-daemon -Sbmp /var/www/html/modules/record/devices/'$this->name'/pid1 -x /usr/bin/ffmpeg -- -i '$path' -an -ss '$frame' -r 1 -vframes 1 -f image2 /var/www/html/modules/record/devices/'$this->name'/'$frame'_2frame.jpg");
+        system("start-stop-daemon -Sbmp /var/www/html/modules/record/devices/'$this->name'/pid1  -u www-data -x /usr/bin/ffmpeg -- -i '$path' -an -ss '$frame' -r 1 -vframes 1 -f image2 /var/www/html/modules/record/devices/'$this->name'/'$frame'_2frame.jpg");
         unlink("/var/www/html/modules/record/devices/'.$this->name.'/pid1");
         //$this->DetectTheBeginning();
         

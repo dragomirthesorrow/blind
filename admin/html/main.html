@@ -71,10 +71,10 @@ and open the template in the editor.
             if(empty($status_service)){
             //Процесс не запущен
             //echo '1';
-            echo '<p><font color=red>Приложение не запущено.</font></p>';
+            echo '<p><font color=red>Приложение не запущено.</font><a href="#" onclick="window.open(\'tools/functions/manual_start_stop.php?action=1\',\'Clean\',\'left=400, top=150,menubar=no, location=no, toolbar=no,width=900,height=600\');">Start</a></p>';
             }else{
             //Процесс запущен
-            echo '<p><font color=green>Приложение запущено.</font></p>';
+            echo '<p><font color=green>Приложение запущено.</font><a href="#" onclick="window.open(\'tools/functions/manual_start_stop.php?action=0\',\'Clean\',\'left=400, top=150,menubar=no, location=no, toolbar=no,width=900,height=600\');">Stop</a></p>';
             }
             
             ?>
