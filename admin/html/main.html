@@ -64,5 +64,20 @@ and open the template in the editor.
             $check->CheckDevices();
             ?>
         </div>
+        <footer>
+            
+            <?php
+            //Проверка запущен ли процесс, если да, то кнопка остановить, нет - запустить. В родительском файле получено значение процесса
+            if(empty($status_service)){
+            //Процесс не запущен
+            //echo '1';
+            echo '<p><font color=red>Приложение не запущено.</font></p>';
+            }else{
+            //Процесс запущен
+            echo '<p><font color=green>Приложение запущено.</font></p>';
+            }
+            
+            ?>
+        </footer>
     </body>
 </html>

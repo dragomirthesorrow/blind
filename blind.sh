@@ -19,7 +19,8 @@ fi
 php /var/www/html/modules/end.php
 date=`date +%Y-%m-%d:%H:%M:%S`
 start-stop-daemon -Kp /var/www/html/mainpid
-rm /var/www/html/mainpid
+#rm /var/www/html/mainpid
+echo '0' > /var/www/html/mainpid
 echo '<p><font color=red>'${date}' Приложение завершено. Процесс: '${pid}'</font></p>'>>/var/www/html/log.txt
 echo 'Приложение завершает работу.';
 fi

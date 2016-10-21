@@ -4,3 +4,4 @@
 4-record-> end.php (function only for modect)
 5-admin->tools->functions->camera_add.php (added setting the sence not default)
 6-admin->tools->functions->camera_set.php (ability to change name correctlt)
+7-blind.sh (Not to remove mainpid, but insert procstatus)
