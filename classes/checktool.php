@@ -55,5 +55,14 @@ Class CheckTools{
             }
             //echo '<table>';
     }
+        function CheckStatus(){
+        $process=file("/var/www/html/mainpid");
+        $proc=trim($process['0']);
+        $st='/var/www/html/status';
+        system("ps '$proc' > '$st'");
+        $lines=file($st);
+        $status_service=$lines['1'];
+        return $status_service;
+    }
 }
 

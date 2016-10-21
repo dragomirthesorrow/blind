@@ -200,3 +200,12 @@ z-index:-1
 	min-height:70%;
 	border-radius: 10px; 
 }
+.live_image{
+    position: relative;
+    margin-top: 0px;
+}
+.live_text{
+    position: absolute;
+    margin-top: -24px;
+    margin-left: 40%;
+}

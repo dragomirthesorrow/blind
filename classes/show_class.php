@@ -20,7 +20,8 @@ class Show{
                         $image='<img id="stream" src="http://video:123456@'.$ip_c.'/mjpg/video.mjpg" alt="Press Reload if no image is displayed" style="cursor: crosshair;" width="320" height="240" border="0">';
                     }
                     
-                    echo '<tr><td><a href="?monid='.$c['id'].'">'.$image.$c['name'].'</a></td></tr>';}
+                    echo '<tr><td><div class="live_image">'.$image.'</div><div class="live_text"><a href="?monid='.$c['id'].'">'.$c['name'].'</a></div></td></tr>';//<a href="?monid='.$c['id'].'">'.$image.$c['name'].'</a>;
+                    }
 		$count=count($cams);
 		return $count;
 	}

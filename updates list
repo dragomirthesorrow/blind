@@ -5,3 +5,6 @@
 5-admin->tools->functions->camera_add.php (added setting the sence not default)
 6-admin->tools->functions->camera_set.php (ability to change name correctlt)
 7-blind.sh (Not to remove mainpid, but insert procstatus)
+8-show_class (div)
+9-style.css (styles for live)
+10-checktool.php (added status check func)

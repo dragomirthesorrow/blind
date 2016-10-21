@@ -12,11 +12,14 @@ if(!isset($_SESSION['user_id'])){
 //Получаем наличие запущенного процесса и создаем переменную $status_service
 
 //Получаем пид всего процесса
-$process=file("/var/www/html/mainpid");
+/*$process=file("/var/www/html/mainpid");
 $proc=trim($process['0']);
 $st='/var/www/html/status';
 system("ps '$proc' > '$st'");
 $lines=file($st);
-$status_service=$lines['1'];
+$status_service=$lines['1'];*/
+require_once '../classes/checktool.php';
+$check=new CheckTools();
+$status_service=$check->CheckStatus();
 include_once './html/main.html';
 ?>
