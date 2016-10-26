@@ -12,5 +12,5 @@ I=$(( I + 1));
 sleep 1;
 php /var/www/html/modules/record/index.php
 php /var/www/html/modules/modect/modect.php
-#remover jpg ов
+php /var/www/html/modules/log_new.php
 done
