@@ -134,6 +134,8 @@ z-index:-1
     vertical-align: bottom;
 }
 .but_txt{
+    color: greenyellow;
+    margin-top: 10px;
     position: absolute;
     vertical-align: bottom;
     

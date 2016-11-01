@@ -8,4 +8,7 @@
 //var_dump($array);
 //print_r($_SERVER['DOCUMENT_ROOT']);
 //phpinfo();
+require_once 'classes/version.php';
+$vers=new Version();
+$version=$vers->ShowVersion();
 include_once '/var/www/html/html/index_main.html';

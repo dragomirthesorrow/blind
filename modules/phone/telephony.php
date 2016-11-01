@@ -20,7 +20,15 @@ foreach($items['0'] as $item){
     $name=$name_phone['0'];
     preg_match("/CN\=(.+)\,OU/",$dn_phone,$dn1);
     $dn=$dn1['1'];
-    echo '<tr><td>'.$name.'</td><td>'.$num.'</td><td>'.$dn.'</td></tr>';
+    //проверяем наличие конфигурации
+    $file='/var/www/html/tel_configs/cfg'.$mac.'.xml';
+    $exist=file_exists($file);
+    if($exist==TRUE){
+        $notice='';
+    }else{
+        $notice='<font size="0,2" color="red">Файл конфигурации не найден.</font>';
+    }
+    echo '<tr><td>'.$name.'</td><td>'.$num.$notice.'</td><td>'.$dn.'</td></tr>';
     
 }
 //print_r($phones['0']);

@@ -18,8 +18,15 @@ $st='/var/www/html/status';
 system("ps '$proc' > '$st'");
 $lines=file($st);
 $status_service=$lines['1'];*/
-require_once '../classes/checktool.php';
-$check=new CheckTools();
-$status_service=$check->CheckStatus();
+
+require_once '../classes/version.php';
+require_once 'classes/AdminInterface.php';
+
+//Получаем версию приложения
+$vers=new Version();
+$version=$vers->ShowVersion();
+
+//Проверяем запущенность процесса
+
 include_once './html/main.html';
 ?>

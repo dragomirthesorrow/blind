@@ -7,6 +7,58 @@ and open the template in the editor.
 <html>
     <head>
         <meta charset="UTF-8">
+        <title>
+        <?php 
+        echo $version;
+        ?>
+        </title>
+        <link rel="stylesheet" type="text/css" href="../css/style_tool.css"> 
+        <link rel="shortcut icon" href="../images/eye_tool.ico" type="image/x-icon">
+    </head>
+    <body>
+        <p>Under reconstruction!</p>
+        <div class="head">
+            
+            <form action="../../functions/auth.php" method="GET">
+                <p>Административный доступ. <?php echo $_SESSION['user_id'];?>
+                <input type="image" src="../../images/exit.png" height="40"/>
+                <input type="hidden" name="logout" value="logout"/>
+                    </p>
+
+            </form>
+        </div>
+        <div class="MainPanel">
+            <p><B>Состояние устройств.</B></p>
+            <?php
+            $MPanel=new Front();
+            $MPanel->MainPanel();
+            ?>
+            
+        </div>
+        <div class="CameraPanel">
+            <p><B>Управление камерами</B></p>
+            <?php
+            $cams=new Front();
+            $cams->CameraPanel();
+            ?>
+        </div>
+        <div class="PhonePanel">
+            <p><B>Конфигурации телефонов</B></p>
+            <?php
+            $PhonesPanel=new Front();
+            $PhonesPanel->PhonePanel();
+            ?>
+        </div>
+    </body>
+</html>
+
+
+
+
+<!-- First redaction
+<html>
+    <head>
+        <meta charset="UTF-8">
         <title>Blind 0.1.</title>
         <link rel="stylesheet" type="text/css" href="../css/style_tool.css"> 
         <link rel="shortcut icon" href="../images/eye_tool.ico" type="image/x-icon">
@@ -81,3 +133,4 @@ and open the template in the editor.
         </footer>
     </body>
 </html>
+-->
