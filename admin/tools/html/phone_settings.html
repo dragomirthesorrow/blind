@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Phone configure</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="../../../css/settings_style.css">
+    </head>
+    <body>
+        <?php if($action==1){
+        echo '<form name="ph" action="" method="POST">';
+        echo '<table>';
+        foreach($config as $key=>$directive){
+        if($key<4 || $key>509){continue;}
+        preg_match("/<\/P(.+)>/",$directive,$number);
+            echo '<tr><td>';
+            $descriptions=file("/var/www/html/tel_configs/description");
+            //echo $number['1'];
+            foreach($descriptions as $descript){
+            
+                $pat='/'.$number['1'].'>(.+)</';
+                preg_match($pat,$descript,$description);//print_r($description);
+                //print_r($description);
+                if(empty($description['1'])){continue;}
+                echo $description['1'];
+            }
+            echo '</td><td><p><input type="text" name="'.$number['1'].'" value="'.htmlspecialchars($directive).'"/></p></td></tr>';
+        }
+        echo '<tr><td colspan="2"><p><input type="submit" value="Подтвердить"/></p></td></tr>';
+        echo '</table></form>';
+        }elseif($action==2){
+        //print_r($cfg);
+        echo '<form name="phdef" action="" method="POST">';
+        echo '<input type="hidden" value="1"/>';
+        echo '<table>';
+        foreach($cfg as $key => $dir){
+        if($key<20 || $key>525){continue;}
+        preg_match("/<\/(.+)>/",$dir,$num);
+
+        /*$pat='/P'.$num.'>(.+)</';
+        preg_match("/P'.$num.'>(.+)</",$descriptions,$description);*/
+        echo '<tr><td>';
+        $descriptions=file("/var/www/html/tel_configs/description");
+            foreach($descriptions as $descript){
+            
+                $pat='/'.$num['1'].'>(.+)</';
+                preg_match($pat,$descript,$description);//print_r($description);
+                //print_r($description);
+                if(empty($description['1'])){continue;}
+                echo $description['1'];
+            }
+        echo '</td><td><p><input type="text" name="'.$num['1'].'" value="'.$dir.'"/></td></tr>';
+        }
+        echo '<tr><td colspan="2"><p><input type="submit" value="Подтвердить"/></p></td></tr>';
+        echo '</form>';
+        }
+        ?>
+    </body>
+</html>

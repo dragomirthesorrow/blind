@@ -20,10 +20,10 @@ class Front{
         //Проверка запущен ли процесс, если да, то кнопка остановить, нет - запустить. В родительском файле получено значение процесса
             if(empty($status_service)){
             //Процесс не запущен
-            echo '<p><font color=red>Приложение не запущено.</font><a href="#" onclick="window.open(\'tools/functions/manual_start_stop.php?action=1\',\'Clean\',\'left=400, top=150,menubar=no, location=no, toolbar=no,width=900,height=600\');">Start</a></p>';
+            echo '<p><font color=red>Приложение не запущено.</font><a href="#" onclick="window.open(\'tools/functions/manual_start_stop.php?action=1\',\'Process\',\'left=400, top=150,menubar=no, location=no, toolbar=no,width=900,height=600\');">Start</a></p>';
             }else{
             //Процесс запущен
-            echo '<p><font color=green>Приложение запущено.</font><a href="#" onclick="window.open(\'tools/functions/manual_start_stop.php?action=0\',\'Clean\',\'left=400, top=150,menubar=no, location=no, toolbar=no,width=900,height=600\');">Stop</a></p>';
+            echo '<p><font color=green>Приложение запущено.</font><a href="#" onclick="window.open(\'tools/functions/manual_start_stop.php?action=0\',\'Process\',\'left=400, top=150,menubar=no, location=no, toolbar=no,width=900,height=600\');">Stop</a></p>';
             }
             $check=new CheckTools();
             $check->CheckDevicesAdmin();
@@ -34,7 +34,7 @@ class Front{
         require_once '../modules/phone/class/phonetools.php';
         $PPanel=new Phones();
         $panel=$PPanel->ShowAll();
-        //print_r($PPanel);
+        echo '<p><a href="#" onclick="window.open(\'tools/functions/phone_settings.php\',\'Default phones configuration\',\'left=400, top=150,menubar=no, location=no, toolbar=no, scrollbars=yes, width=900,height=600\');">Иземенить общую конфигурацию.</a></p><br/>';
         echo '<table>';
         foreach ($panel['0'] as $item){
                 $mac_phone=$item['othertelephone'];
@@ -54,7 +54,7 @@ class Front{
     }else{
         $notice='<font size="0,2" color="red">Файл конфигурации не найден.</font>';
     }
-    echo '<tr><td>'.$name.'</td><td>'.$num.$notice.'</td><td>'.$dn.'</td><td><a href="#">Изменить</a></td></tr>';
+    echo '<tr><td>'.$name.'</td><td>'.$num.$notice.'</td><td>'.$dn.'</td><td><a href="#"  onclick="window.open(\'tools/functions/phone_settings.php?mac='.$mac.'\',\'Phones configuration\',\'left=400, top=150,menubar=no, location=no, scrollbars=yes, toolbar=no,width=900,height=600\');">Изменить</a></td></tr>';
         }
         echo '</table>';
     }
