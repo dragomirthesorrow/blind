@@ -15,6 +15,8 @@ and open the template in the editor.
         <?php if($action==1){
         echo '<form name="ph" action="" method="POST">';
         echo '<table>';
+        echo '<tr><td colspan="2"><p><B>Редактирование конфигурации для '.$mac.'.</B></p></td></tr>';
+        echo '<tr><td>Описание</td><td>Значение XML</td></tr>';
         foreach($config as $key=>$directive){
         if($key<4 || $key>509){continue;}
         preg_match("/<\/P(.+)>/",$directive,$number);
@@ -36,8 +38,10 @@ and open the template in the editor.
         }elseif($action==2){
         //print_r($cfg);
         echo '<form name="phdef" action="" method="POST">';
-        echo '<input type="hidden" value="1"/>';
+        //echo '<input type="hidden" name="default" value="1"/>';
         echo '<table>';
+        echo '<tr><td colspan="2"><p><B>Редактирование общей конфигурации.</B></p></td></tr>';
+        echo '<tr><td>Описание</td><td>Значение XML</td></tr>';
         foreach($cfg as $key => $dir){
         if($key<20 || $key>525){continue;}
         preg_match("/<\/(.+)>/",$dir,$num);
