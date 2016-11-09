@@ -46,19 +46,24 @@ if(!empty($_POST)){
         fclose($file);
         //После создания дефолтной конфигурации запускаем переконфигурирование всех файлов.
         //1 Получаем директивы претерпевшие изменения по сравнению с эталоном $conf_old.
-        $conf_new=file("/var/www/html/tel_configs/auto_configurating_phones.sh");
+        $conf_new=file("/var/www/html/tel_configs/auto_configurating_phones1.sh");
         //print_r($conf_old);
         //print_r($conf_new);
         $dirs=array_diff_assoc($conf_new,$conf_old);
-
+//print_r($dirs);echo 'DIRSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
+              foreach($dirs as $dididi){
+            echo htmlspecialchars($dididi).'<br/>';
+        }
+//print_r($conf_new);
+//print_r($conf_old);
         //Получаем массив старых значений в формате xml
         $conf_old_xml11=array_slice($conf_old,16);
 
         $lenth=count(file("/var/www/html/tel_configs/cfg.xml"));
         $conf_old_xml=array_slice($conf_old_xml11,0,$lenth);
-                foreach($conf_old_xml as $xml){
+          /*      foreach($conf_old_xml as $xml){
             echo htmlspecialchars($xml).'<br/>';
-        }
+        }*/
         //print_r($conf_old_xml);
         /*foreach($conf_old_xml as $xml){
             echo HTMLSPECIALCHARS($xml).'<br/>';
@@ -75,16 +80,90 @@ if(!empty($_POST)){
             //4 Получаем масив директив для конкретного аппарата, коорые будут заменены. Исключаем директивы, измененные для аппарата,
             //а также директивы аккаунтов. (они исключены на этапе сверки старого и нового файла дефолтной конфигурации)$dirs_not_to_update
             //$dirs
-            //$directory_to_change=array_diff($dirs,$dirs_not_to_update);
-            //print_r($c);
-            print_r($dirs_not_to_update).'////////////////////////////////';
-            //sleep(1);
-            /*foreach ($dirs_not_to_update as $ddd){
-               
-                echo htmlspecialchars($ddd).'<br/>';
-            }*/
+            //print_r($linesall);
+            //print_r($conf_old_xml);
+//print_r($dirs_not_to_update);
             
+            
+            //Получаем значения директив в обоих массивах и исключаем из dirs то, что ненужно обновлять.
+            $dirs_str=implode($dirs);
+            $dirs_not_to_update_str=implode($dirs_not_to_update);
+            
+            $changes=array();
+            $discard=array();
+            //print_r($changes);
+            //echo htmlspecialchars($dirs_str);
+            //echo htmlspecialchars($dirs_not_to_update_str);
+            foreach($dirs_not_to_update as $dntu){
+            preg_match("/<\/P(.+)>\n/",$dntu,$Pnot);
+            //echo htmlspecialchars($Pnot['1']);
+            array_push($discard,$Pnot['1']);
+            }
+            $P_not=array_slice($discard,1);
+            //$discard;
+            print_r($P_not);
+            //print_r($P_not);
+            //var_dump($P_not);
+            //echo '//';
+            //preg_match_all("/<\/P(.+)>\n/",$dirs_not_to_update_str,$P);
+            
+            foreach($dirs as $P){//5 для каждой директивы проверяем на совпадение в массиве измененных для конкретного телефона
+                //print_r($P);
+                
+                foreach($P_not as $not){
+                    //echo $not;
+                    $mask_not="</P$not>";
+                    //print_r($dirs);
+                    echo '/'.htmlspecialchars($P).'@'.htmlspecialchars($mask_not);
+                    preg_match($mask_not,$P,$n);
+                    //print_r($n);
+                    //echo $n['1'].'@@';
+                    if(empty($n['1'])){
+                        array_push($changes,$P);
+                    }else{
+                        //echo 'no';
+                        continue;
+                    }
+                }
+            }
+            //print_r($P);
+            var_dump($changes);
+            foreach($changes as $joke){
+                echo htmlspecialchars($joke);
+                echo 'that';
+            }
+            //6 Пересобираем конфигурацию.
+            //$remake=fopen('/var/www/html/tel_configs/1cfg',"a");
+            foreach($linesall as $line_new){//для каждой строки
+                foreach($changes as $change){//проверяем нед ли значения в обновлении конфига
+                    $ptttttt='</P'.trim($change).'>';
+                    //echo $ptttttt;
+                    preg_match($ptttttt,$line_new,$ln);
+                    print_r($ln);
+                    if(empty($ln['1'])){//если нет, то записываем в файл
+                        echo $line_new.'<br/>';
+//fwrite($remake,$line_new."\n");
+                    }else{//если есть, то берем значение из $dirs
+                        
+                        foreach($dirs as $new_dir){
+                            preg_match("/<P$change>(.+)<\/P$change>/",$new_dir,$nd);
+                            if(!empty($nd['1'])){
+                                fwrite($remake,$nd['1']."\n");
+                                echo 'изменено.<br/>';
+                            }else{
+                                continue;
+                            }
+                        }
+                    }
+                }
+            }
+            //fclose("/var/www/html/tel_configs/1cfg");
+            //unlink($cfile);
+            //rename("/var/www/html/tel_configs/1cfg",$cfile);
+            print_r($changes);
+            //echo '!!!!!!!!!!<br/>';
         }
+        
         unset($conf_old_xml);
         unset($conf_old_xml11);
         unset($lenth);
@@ -104,15 +183,15 @@ if(!empty($_POST)){
         $cofg='/var/www/html/tel_configs/cfg'.$mac.'.xml';
         file_put_contents($cofg, '');
         $cfg=fopen($cofg,"a");
-        fwrite($cfg, "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n");
-        fwrite($cfg, "<gs_provision version=\"1\">\r\n");
-        fwrite($cfg, "<mac>$mac</mac>\r\n");
-        fwrite($cfg, "<config version=\"1\">\r\n");
+        fwrite($cfg, "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n");
+        fwrite($cfg, "<gs_provision version=\"1\">\n");
+        fwrite($cfg, "<mac>$mac</mac>\n");
+        fwrite($cfg, "<config version=\"1\">\n");
         foreach($_POST as $new_dir){
-            fwrite($cfg, $new_dir."\r\n");
+            fwrite($cfg, $new_dir."\n");
         }
-        fwrite($cfg, "</config>\r\n");
-        fwrite($cfg, "</gs_provision>\r\n");
+        fwrite($cfg, "</config>\n");
+        fwrite($cfg, "</gs_provision>\n");
         fclose($cfg);
     }
 }else{

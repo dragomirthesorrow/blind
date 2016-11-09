@@ -1,4 +1,4 @@
-#!/bin/bash 
+#!/bin/bash
 
 #this script gets params from auto_conf.php and create configs for phones.
 
@@ -17,8 +17,8 @@ cat <<EOF >>$dfile
 <?xml version="1.0" encoding="UTF-8" ?>
 <gs_provision version="1">
 <mac>${mac}</mac>
-<config version="1">
-<P570>25</P570>
+<config version="1"> 
+<P570>20</P570>
 <P695>1</P695>
 <P571>20</P571>
 <P696>101</P696>
@@ -524,9 +524,10 @@ cat <<EOF >>$dfile
 <P692>1</P692>
 <P2339>0</P2339>
 <P693>1</P693>
-</config>
-</gs_provision>
+</config> 
+</gs_provision> 
 EOF
 
 #openssl enc -e -aes-256-cbc -k 123456 -in $dfile -out $dfile.xml
 #rm $dfile
+
