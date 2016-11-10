@@ -4,8 +4,6 @@
  */
 //Обработчик поста
 if(!empty($_POST)){
-    //print_r($_POST);
-    //echo $_POST['P3'];
     //если дефолт или нет:
     if($_POST['default']==="${name}" || empty($_GET['mac'])){
         //для всех
@@ -47,43 +45,25 @@ if(!empty($_POST)){
         //После создания дефолтной конфигурации запускаем переконфигурирование всех файлов.
         //1 Получаем директивы претерпевшие изменения по сравнению с эталоном $conf_old.
         $conf_new=file("/var/www/html/tel_configs/auto_configurating_phones1.sh");
-        //print_r($conf_old);
-        //print_r($conf_new);
         $dirs=array_diff_assoc($conf_new,$conf_old);
-//print_r($dirs);echo 'DIRSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS';
-              foreach($dirs as $dididi){
-            echo htmlspecialchars($dididi).'<br/>';
-        }
-//print_r($conf_new);
-//print_r($conf_old);
+
         //Получаем массив старых значений в формате xml
         $conf_old_xml11=array_slice($conf_old,16);
 
         $lenth=count(file("/var/www/html/tel_configs/cfg.xml"));
         $conf_old_xml=array_slice($conf_old_xml11,0,$lenth);
-          /*      foreach($conf_old_xml as $xml){
-            echo htmlspecialchars($xml).'<br/>';
-        }*/
-        //print_r($conf_old_xml);
-        /*foreach($conf_old_xml as $xml){
-            echo HTMLSPECIALCHARS($xml).'<br/>';
-        }*/
+
         
         //3 Получаем для каждого файла кфг отличия от эталона.
         $cfg_files_dir='/var/www/html/tel_configs/cfg*.xml';
         $cfg_files=glob($cfg_files_dir);
+        $num_temp_file='1';
         foreach($cfg_files as $cfile){
-            echo'-----------------------------'.$cfile.'<br/>';
             $linesall=file($cfile);
-            //print_r($c);
             $dirs_not_to_update=array_diff($linesall,$conf_old_xml);//Директивы, которые не будем менять
             //4 Получаем масив директив для конкретного аппарата, коорые будут заменены. Исключаем директивы, измененные для аппарата,
             //а также директивы аккаунтов. (они исключены на этапе сверки старого и нового файла дефолтной конфигурации)$dirs_not_to_update
-            //$dirs
-            //print_r($linesall);
-            //print_r($conf_old_xml);
-//print_r($dirs_not_to_update);
-            
+      
             
             //Получаем значения директив в обоих массивах и исключаем из dirs то, что ненужно обновлять.
             $dirs_str=implode($dirs);
@@ -91,24 +71,12 @@ if(!empty($_POST)){
             
             $changes=array();
             $discard=array();
-            //print_r($changes);
-            //echo htmlspecialchars($dirs_str);
-            //echo htmlspecialchars($dirs_not_to_update_str);
+
             foreach($dirs_not_to_update as $dntu){
             preg_match("/<\/P(.+)>\n/",$dntu,$Pnot);
-            //echo htmlspecialchars($Pnot['1']);
             array_push($discard,$Pnot['1']);
             }
             $P_not=array_slice($discard,1);
-            //$discard;
-            foreach($dirs as $test){
-                echo htmlspecialchars($test);
-                echo 'all change<br/>';
-            }
-            foreach($P_not as $test1){
-                echo htmlspecialchars($test1);
-                echo 'Not change for that<br/>';
-            }
 
             //$dirs - полный состав директории <P..>....</P>
             //$P_not - номер директивы 35,35
@@ -116,9 +84,7 @@ if(!empty($_POST)){
 //5 для каждой директивы проверяем на совпадение в массиве измененных
             foreach($dirs as $P){
                 //print_r($P);
-                echo htmlspecialchars($P).'<br/>';
 $lenth_discard=count($P_not);
-
 $count_not_discard=array();
 
 //берем массив дискарда и для каждого сверяем с каждой директивай изменений
@@ -134,39 +100,67 @@ $count_not_discard=array();
                 }
                 //если есть совпадения, то не засовываем директиву в изменения
                 if(count($count_not_discard)==$lenth_discard){
-                    echo count($count_not_discard).'/'.$lenth_discard;
+                    //echo count($count_not_discard).'/'.$lenth_discard;
                     array_push($changes,$P);
                 }else{
-                    echo count($count_not_discard).'/'.$lenth_discard;
+                    //echo count($count_not_discard).'/'.$lenth_discard;
                     continue;
                 }
             }
             
+            //Выводим сообщение, если ничего не меняется для конфигурации.
+            if(empty($changes)){
+                echo 'Данные параметры конфигурации для '.$cfile.' были изменены вручную, изменения внесены не были.<br/>';
+                continue;
+            }
+            
 //6 Собираем конфигурации:
 
-            foreach($changes as $joke){
-                echo htmlspecialchars($joke);
-                echo 'Change!!!<br/>';
-            }
-            //6 Пересобираем конфигурацию.
-            $remake=fopen('/var/www/html/tel_configs/1cfg',"a");
+           
+            $lenth_changes=count($changes);
+            $new_file='/var/www/html/tel_configs/'.$num_temp_file.'cfg';
+            $remake=fopen($new_file,"a");
             foreach($linesall as $line_new){//для каждой строки
+                 $new_lines_config=array();
                 foreach($changes as $change){//проверяем нед ли значения в обновлении конфига
-
+                    $search1="/<\/P(.+)>/";
+                    preg_match($search1,$change,$d_number);
+                    $number=$d_number['1'];
+                    $search2="/<P$number>(.+)/";
+                    preg_match($search2,$line_new,$exist);
+                    if(isset($exist['1'])){
+                        continue;
+                        
+                    }else{
+                        
+                        array_push($new_lines_config,"PASS");
+                    }
+                }
+                if(count($new_lines_config)==$lenth_changes){
+                    fwrite($remake,$line_new);
+                }else{
+                    fwrite($remake,$change);
                 }
             }
-            fclose("/var/www/html/tel_configs/1cfg");
-            //unlink($cfile);
-            //rename("/var/www/html/tel_configs/1cfg",$cfile);
+            fclose($remake);
+            unlink($cfile);
+            rename($new_file,$cfile);
+            echo $cfile.'Пересобран<br/>';
+            $num_temp_file=$num_temp_file+1;
+            
         }
         
-        unset($conf_old_xml);
-        unset($conf_old_xml11);
-        unset($lenth);
-        //Переносим новый файл конфигурирования
-        unlink("/var/www/html/tel_configs/auto_configurating_phones.sh");
-        rename("/var/www/html/tel_configs/auto_configurating_phones1.sh","/var/www/html/tel_configs/auto_configurating_phones.sh");
-        //mv 1 - 0
+
+        //7 Переносим новый файл конфигурирования
+        file_put_contents("/var/www/html/tel_configs/auto_configurating_phones.sh",'');
+        $new_sh=file("/var/www/html/tel_configs/auto_configurating_phones1.sh");
+        $sh=fopen('/var/www/html/tel_configs/auto_configurating_phones.sh',"a");
+        foreach($new_sh as $new_default){
+            fwrite($sh,trim($new_default)."\n");
+        }
+        fclose($sh);
+        unlink("/var/www/html/tel_configs/auto_configurating_phones1.sh");
+
     }else{
         $mac=$_GET['mac'];
         //echo '1'.$mac;
