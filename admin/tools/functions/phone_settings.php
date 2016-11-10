@@ -101,78 +101,69 @@ if(!empty($_POST)){
             }
             $P_not=array_slice($discard,1);
             //$discard;
-            print_r($P_not);
-            //print_r($P_not);
-            //var_dump($P_not);
-            //echo '//';
-            //preg_match_all("/<\/P(.+)>\n/",$dirs_not_to_update_str,$P);
+            foreach($dirs as $test){
+                echo htmlspecialchars($test);
+                echo 'all change<br/>';
+            }
+            foreach($P_not as $test1){
+                echo htmlspecialchars($test1);
+                echo 'Not change for that<br/>';
+            }
+
+            //$dirs - полный состав директории <P..>....</P>
+            //$P_not - номер директивы 35,35
             
-            foreach($dirs as $P){//5 для каждой директивы проверяем на совпадение в массиве измененных для конкретного телефона
+//5 для каждой директивы проверяем на совпадение в массиве измененных
+            foreach($dirs as $P){
                 //print_r($P);
-                
-                foreach($P_not as $not){
-                    //echo $not;
-                    $mask_not="</P$not>";
-                    //print_r($dirs);
-                    echo '/'.htmlspecialchars($P).'@'.htmlspecialchars($mask_not);
-                    preg_match($mask_not,$P,$n);
-                    //print_r($n);
-                    //echo $n['1'].'@@';
-                    if(empty($n['1'])){
-                        array_push($changes,$P);
+                echo htmlspecialchars($P).'<br/>';
+$lenth_discard=count($P_not);
+
+$count_not_discard=array();
+
+//берем массив дискарда и для каждого сверяем с каждой директивай изменений
+                foreach($P_not as $exclude){
+                    
+                    $find="/<P$exclude>(.+)<\/P$exclude>/";
+                    preg_match($find,$P,$result);
+                    if(empty($result['1'])){
+                        array_push($count_not_discard,$P);
                     }else{
-                        //echo 'no';
                         continue;
                     }
                 }
-            }
-            //print_r($P);
-            var_dump($changes);
-            foreach($changes as $joke){
-                echo htmlspecialchars($joke);
-                echo 'that';
-            }
-            //6 Пересобираем конфигурацию.
-            //$remake=fopen('/var/www/html/tel_configs/1cfg',"a");
-            foreach($linesall as $line_new){//для каждой строки
-                foreach($changes as $change){//проверяем нед ли значения в обновлении конфига
-                    $ptttttt='</P'.trim($change).'>';
-                    //echo $ptttttt;
-                    preg_match($ptttttt,$line_new,$ln);
-                    print_r($ln);
-                    if(empty($ln['1'])){//если нет, то записываем в файл
-                        echo $line_new.'<br/>';
-//fwrite($remake,$line_new."\n");
-                    }else{//если есть, то берем значение из $dirs
-                        
-                        foreach($dirs as $new_dir){
-                            preg_match("/<P$change>(.+)<\/P$change>/",$new_dir,$nd);
-                            if(!empty($nd['1'])){
-                                fwrite($remake,$nd['1']."\n");
-                                echo 'изменено.<br/>';
-                            }else{
-                                continue;
-                            }
-                        }
-                    }
+                //если есть совпадения, то не засовываем директиву в изменения
+                if(count($count_not_discard)==$lenth_discard){
+                    echo count($count_not_discard).'/'.$lenth_discard;
+                    array_push($changes,$P);
+                }else{
+                    echo count($count_not_discard).'/'.$lenth_discard;
+                    continue;
                 }
             }
-            //fclose("/var/www/html/tel_configs/1cfg");
+            
+//6 Собираем конфигурации:
+
+            foreach($changes as $joke){
+                echo htmlspecialchars($joke);
+                echo 'Change!!!<br/>';
+            }
+            //6 Пересобираем конфигурацию.
+            $remake=fopen('/var/www/html/tel_configs/1cfg',"a");
+            foreach($linesall as $line_new){//для каждой строки
+                foreach($changes as $change){//проверяем нед ли значения в обновлении конфига
+
+                }
+            }
+            fclose("/var/www/html/tel_configs/1cfg");
             //unlink($cfile);
             //rename("/var/www/html/tel_configs/1cfg",$cfile);
-            print_r($changes);
-            //echo '!!!!!!!!!!<br/>';
         }
         
         unset($conf_old_xml);
         unset($conf_old_xml11);
         unset($lenth);
-        //3 Если изменено для определенного телефона, то директиву по умолчанию не перезаписываем.
-        //print_r(htmlspecialchars(($diff));
-
-        
-        
-        //Выбираем телефоны, которые необходимо сконфигурировать.
+        //Переносим новый файл конфигурирования
         unlink("/var/www/html/tel_configs/auto_configurating_phones.sh");
         rename("/var/www/html/tel_configs/auto_configurating_phones1.sh","/var/www/html/tel_configs/auto_configurating_phones.sh");
         //mv 1 - 0
