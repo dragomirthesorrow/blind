@@ -148,7 +148,17 @@ $count_not_discard=array();
             echo $cfile.'Пересобран<br/>';
             $num_temp_file=$num_temp_file+1;
             
+            
+            //8 делаем зашифрованные конфиги, на случай если телефон не воспринимает инных. Пароль всегда P@ssw0rd
+            //Получаем mac из названия файла
+            $mac_search="/\/cfg(.+).xml/";
+            preg_match($mac_search,$cfile,$mac_array);
+            $mac_device=$mac_array['1'];
+            unlink("/var/www/html/tel_configs/confirmed_cfg'.$mac_device.'.xml");
+            system("openssl enc -e -aes-256-cbc -k P@ssw0rd -in '$cfile' -out /var/www/html/tel_configs/confirmed_cfg'$mac_device'.xml");
         }
+        
+        
         
 
         //7 Переносим новый файл конфигурирования

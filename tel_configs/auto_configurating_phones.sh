@@ -11,6 +11,7 @@ name=$3
 
 #set the output filename
 dfile='/var/www/html/tel_configs/cfg'${mac}'.xml'
+cfile='/var/www/html/tel_configs/confirmed_cfg'${mac}'.xml'
 
 #start the construction
 cat <<EOF >>$dfile
@@ -57,7 +58,7 @@ cat <<EOF >>$dfile
 <P338>0</P338>
 <P2625>0</P2625>
 <P93>0</P93>
-<P2340>0</P2340>
+<P2340>confirmed_</P2340>
 <P94>0</P94>
 <P2501>0</P2501>
 <P2341>0</P2341>
@@ -139,7 +140,7 @@ cat <<EOF >>$dfile
 <P186>0</P186>
 <P347>f1>440,f2>440,c>25/525;</P347>
 <P1509>0</P1509>
-<P1349>123456</P1349>
+<P1349>P@ssw0rd</P1349>
 <P348>f1>480,f2>620,c>50/50;</P348>
 <P509>0</P509>
 <P188>0</P188>
@@ -528,5 +529,7 @@ cat <<EOF >>$dfile
 </gs_provision>
 EOF
 
-#openssl enc -e -aes-256-cbc -k 123456 -in $dfile -out $dfile.xml
+openssl enc -e -aes-256-cbc -k 123456 -in $dfile -out $cfile
+chmod 777 $cfile
+chmod 777 $dfile
 #rm $dfile
