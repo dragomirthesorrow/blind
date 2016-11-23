@@ -11,7 +11,6 @@ name=$3
 
 #set the output filename
 dfile='/var/www/html/tel_configs/cfg'${mac}'.xml'
-cfile='/var/www/html/tel_configs/confirmed_cfg'${mac}'.xml'
 
 #start the construction
 cat <<EOF >>$dfile
@@ -528,7 +527,7 @@ cat <<EOF >>$dfile
 </config>
 </gs_provision>
 EOF
-
+cfile='/var/www/html/tel_configs/confirmed_cfg'${mac}'.xml'
 openssl enc -e -aes-256-cbc -k 123456 -in $dfile -out $cfile
 chmod 777 $cfile
 chmod 777 $dfile

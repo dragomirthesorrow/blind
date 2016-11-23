@@ -38,7 +38,8 @@ if(!empty($_POST)){
         fwrite($file, "</gs_provision>\n");
         fwrite($file, "EOF\n");
         fwrite($file,"\n");
-        fwrite($file, "#openssl enc -e -aes-256-cbc -k 123456 -in \$dfile -out \$dfile.xml\n");
+        fwrite($file,"cfile='/var/www/html/tel_configs/confirmed_cfg'\${mac}'.xml' \n");
+        fwrite($file, "openssl enc -e -aes-256-cbc -k 123456 -in \$dfile -out \$dfile.xml\n");
         fwrite($file, "#rm \$dfile\n");
         //fwrite($file, "\r");
         fclose($file);
